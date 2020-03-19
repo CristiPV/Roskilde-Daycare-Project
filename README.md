@@ -1,2 +1,3 @@
 # Roskilde-Daycare-Project
-School Project.
+
+Kea School Project.
