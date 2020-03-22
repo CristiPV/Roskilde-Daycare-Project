@@ -5,6 +5,7 @@ public class RoskildeMain {
 
     public static void main(String[] args)
     {
+        // Login Credentials
         String username = "administrator";
         String password = "j042307y9";
 
