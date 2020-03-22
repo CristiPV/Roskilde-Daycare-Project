@@ -1,11 +1,11 @@
 import java.util.Scanner;
 
-public class AdminMenu extends MainMenu {
+public class AdminMenu {
 
     private Scanner console = new Scanner(System.in);
 
     public AdminMenu () {
-    };
+    }
 
     //Admin menu method, switches through admins menu functions
     public void adminMenu() {

@@ -1,6 +1,7 @@
 import java.sql.*;
 
 public class DBConnection {
+    //why there is no constructor?????????
     /*
     This is the class that sets up the connection to the online SQL Database.
     It is used for running queries on the Database.

@@ -5,7 +5,7 @@ public class MainMenu {
     private Scanner console = new Scanner(System.in);
 
     public MainMenu () {
-    };
+    }
 
     /*Method for signing in to the system as an admin or teacher
     with basic prints
