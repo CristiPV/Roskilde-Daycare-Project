@@ -7,3 +7,6 @@
 
 # VPP backup files
 *.bak*
+
+# Libraries
+lib/
