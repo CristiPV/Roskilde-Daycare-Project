@@ -30,6 +30,20 @@ public class DBConnection {
         }
         return null; // Returns null in case of any exception.
     }
+    public static boolean executeQuery(String query) {
+        try {
+            // Sets up the connection to the DB
+            Class.forName("com.mysql.jdbc.Driver");
+            Connection con = DriverManager.getConnection(url, username, password);
+            Statement st = con.createStatement();
+            st.execute("USE roskilde_daycare;");
+            boolean rs = st.execute(query); // Query is executed.
+            return rs; // The ResultSet is being returned.
+        } catch (SQLException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        return false; // Returns null in case of any exception.
+    }
     // endregion
 
     // region Getters
