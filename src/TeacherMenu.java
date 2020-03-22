@@ -1,6 +1,6 @@
 import java.util.Scanner;
 
-public class TeacherMenu extends MainMenu {
+public class TeacherMenu {
 
     private Scanner console = new Scanner(System.in);
 
