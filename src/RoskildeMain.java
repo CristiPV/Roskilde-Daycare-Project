@@ -28,4 +28,6 @@ public class RoskildeMain {
         DBConnection.setUsername(username);
         DBConnection.setPassword(password);
     }
+
+    //smth new for first commit Dagmara
 }
