@@ -11,6 +11,7 @@ public class DBConnection {
     private static String url = "";
     private static String username = "";
     private static String password = "";
+    private static String schema = "";
     // endregion
 
     // region Methods
@@ -24,6 +25,7 @@ public class DBConnection {
             Class.forName("com.mysql.jdbc.Driver");
             Connection con = DriverManager.getConnection(url, username, password);
             Statement st = con.createStatement();
+            st.execute("USE " + schema + ";");
             ResultSet rs = st.executeQuery(query); // Query is executed.
             return rs; // The ResultSet is being returned.
         } catch (SQLException | ClassNotFoundException e) {
@@ -37,7 +39,7 @@ public class DBConnection {
             Class.forName("com.mysql.jdbc.Driver");
             Connection con = DriverManager.getConnection(url, username, password);
             Statement st = con.createStatement();
-            st.execute("USE roskilde_daycare;");
+            st.execute("USE " + schema + ";");
             boolean rs = st.execute(query); // Query is executed.
             return rs; // The ResultSet is being returned.
         } catch (SQLException | ClassNotFoundException e) {
@@ -62,6 +64,10 @@ public class DBConnection {
     {
         return password;
     }
+
+    public static String getSchema() {
+        return schema;
+    }
     // endregion
 
     // region Setters
@@ -78,6 +84,10 @@ public class DBConnection {
     public static void setUrl(String url)
     {
         DBConnection.url = "jdbc:mysql://" + url + "/";
+    }
+
+    public static void setSchema (String schema) {
+        DBConnection.schema = schema;
     }
     // endregion
 }

@@ -10,3 +10,7 @@
 
 # Libraries
 lib/
+
+# Out
+out/
+*.class
