@@ -14,6 +14,14 @@ public class RoskildeMain {
         selectDB(URLDB);
         selectSchema(SCHEMA);
         loginDB(username, password);
+        /*Menu.selectAll( "child" );
+        Menu.insertRow(213, "David", "Spencer", "2014-01-02", "M", 6, "2020-03-23", 501 , 301);
+        Menu.selectAll( "child" );
+        Menu.updateRow( 213, "Chris" );
+        Menu.selectAll("child");
+        Menu.deleteRow(213 );
+        Menu.selectAll("child");*/
+
         /*Menu.selectAll( "child" );*/
        /* Menu.insertRow(213, "David", "Spencer", "2014-01-02", "M", 6, "2020-03-23", 501 , 301);
         Menu.selectAll( "child" );*/

@@ -2,7 +2,7 @@ import java.util.Scanner;
 
 public class MainMenu {
 
-    private Scanner console = new Scanner(System.in);
+    private  Scanner console = new Scanner(System.in);
 
     public MainMenu () {
         signInMenu();
@@ -11,7 +11,7 @@ public class MainMenu {
     /*Method for signing in to the system as an admin or teacher
     with basic prints
     */
-    public void signInMenu() {
+    public  void signInMenu() {
         AdminMenu adminMenu=new AdminMenu();
         TeacherMenu teacherMenu=new TeacherMenu();
         String username, password;

@@ -192,7 +192,7 @@ public class TeacherMenu {
                     break;
                 case 3:
                     System.out.println("|______________________________|   ");
-                    System.out.println("| What do you want to display  |" +
+                    System.out.println("| What do you want to display  |\n" +
                             "  (1)All OR (2)One instance?  ");
                     int displayChoice=console.nextInt();
                     if(displayChoice==1)

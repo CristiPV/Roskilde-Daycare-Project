@@ -1,9 +1,7 @@
 import java.util.Scanner;
 
 public class AdminMenu {
-
     // scanner for user input
-
     private Scanner console = new Scanner(System.in);
     // constructor
     public AdminMenu () {
