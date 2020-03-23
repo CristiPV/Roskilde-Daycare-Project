@@ -55,11 +55,10 @@ public class Controller {
     public static void createSchedule(){
         service.createSchedule();
     }
-    public static void deleteSchedule(){
-        service.deleteSchedule();
+    public static void displaySchedule () {
+        service.displaySchedule();
     }
-    public static void deleteSchedule()
-    {
+    public static void deleteSchedule(){
         service.deleteSchedule();
     }
     public static void createActivity(){

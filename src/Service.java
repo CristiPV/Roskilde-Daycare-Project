@@ -1,3 +1,5 @@
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.Scanner;
 
 public class Service {
@@ -19,7 +21,20 @@ public class Service {
     }
     public void displayChildList(){
         //code to to select data from sql database
-        // select all from child + join with parent first & last name + phone number
+        // select all from child + join with parent first & last name
+        ResultSet rs = DBConnection.sendQuery("SELECT child.child_id, child.first_name, child.last_name, parent.first_name AS \"parent_first_name\", parent.last_name AS \"parent_Last_name\"\n" +
+                                                "FROM child\n" +
+                                                "JOIN parent\n" +
+                                                "ON child.parent_id = parent.parent_id;");
+        try {
+            while (rs.next()) {
+                System.out.println("ID : " + rs.getString("child.child_id") + " | " +
+                                    "Name : " + rs.getString("child.first_name") + " " + rs.getString("child.last_name") + " | " +
+                                    "Parent Name : " + rs.getString("parent.parent_first_name") + " " + rs.getString("parent.parent_Last_name"));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
     public void createParent(){
         //code to to insert data to sql database
@@ -53,8 +68,8 @@ public class Service {
         //code to to select data from sql database
         // select all from appointment + join with teacher name + child name + parent name
     }
-    public static void displayRowFromAppointmentList(){ // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-        //sql
+    public static void displayRowFromAppointmentList(){
+        // select all from appointment for a given teacher id
     }
     public void createRecordInWaitingList(){
         //code to to insert data to sql database
@@ -68,8 +83,8 @@ public class Service {
         //code to to select data from sql database
         // select all + join with child name + parent name
     }
-    public void displayRowFromWaitingList(){ //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-
+    public void displayRowFromWaitingList(){
+        // select all from waiting_list for a given child id
         //code
     }
     public void createSchedule(){

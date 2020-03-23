@@ -5,6 +5,7 @@ public class MainMenu {
     private Scanner console = new Scanner(System.in);
 
     public MainMenu () {
+        signInMenu();
     }
 
     /*Method for signing in to the system as an admin or teacher
@@ -13,6 +14,7 @@ public class MainMenu {
     public void signInMenu() {
         AdminMenu adminMenu=new AdminMenu();
         TeacherMenu teacherMenu=new TeacherMenu();
+        String username, password;
         System.out.println(" ______________________________");
         System.out.println("|          Roskilde            |    ");
         System.out.println("|     ______________________   |   ");
@@ -21,16 +23,22 @@ public class MainMenu {
         System.out.println("|          Sign in             |  ");
         System.out.println("|______________________________|  ");
         System.out.println("|       Enter Username :       | ");
-        console.next();
+        username = console.next();
         System.out.println("|______________________________|\n|       Enter password:        |");
-        String answer;
-        answer = console.next();
+        password = console.next();
         System.out.println("|______________________________|  ");
-        if (answer.equalsIgnoreCase("123")) {
+        loginDB(username, password);
+        if (username.equalsIgnoreCase("administrator")) {
             adminMenu.adminMenu();
         } else {
             teacherMenu.teacherMenu();
         }
+    }
+
+    public static void loginDB(String username, String password)
+    {
+        DBConnection.setUsername(username);
+        DBConnection.setPassword(password);
     }
 
 }

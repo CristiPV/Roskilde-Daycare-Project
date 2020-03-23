@@ -100,10 +100,6 @@ public class AdminMenu {
                     menuSwitcher = true;
                     break;
                 case 3:
-                    displayChildList();
-                    menuSwitcher = true;
-                    break;
-                case 4:
                     System.out.println("|______________________________|   ");
                     System.out.println("| What do you want to display  |" +
                             "  (1)All OR (2)One instance?  ");
@@ -118,8 +114,9 @@ public class AdminMenu {
                         childrenMenu();
                     }
                     menuSwitcher = true;
+                    displayChildList();
                     break;
-                case 5:
+                case 4:
                     adminMenu();
                     menuSwitcher = true;
                     break;
@@ -211,11 +208,10 @@ public class AdminMenu {
        System.out.println("|______________________________|  \n" +
                           "|   Parents Management Menu    |");
        System.out.println("|______________________________|   ");
-       System.out.println("|     1.Phone list             |  ");
+       System.out.println("|     1.Display Parents        |  ");
        System.out.println("|     2.Add Parent in System   |  ");
        System.out.println("|     3.Remove Parent in System|  ");//delete????
-       System.out.println("|     4.Display Parents        |  ");
-       System.out.println("|     5.Back                   |  ");
+       System.out.println("|     4.Back                   |  ");
        System.out.println("|______________________________|   ");
        System.out.println("        Select choice...        ");
 
@@ -223,18 +219,6 @@ public class AdminMenu {
        while (!menuSwitcher) {
            switch (choice) {
                case 1:
-                   createParent();
-                   menuSwitcher = true;
-                   break;
-               case 2:
-                   deleteParent();
-                   menuSwitcher = true;
-                   break;
-               case 3:
-                   displayParentList();
-                   menuSwitcher = true;
-                   break;
-               case 4:
                    System.out.println("|______________________________|   ");
                    System.out.println("| What do you want to display  |" +
                            "  (1)All OR (2)One instance?  ");
@@ -250,10 +234,17 @@ public class AdminMenu {
                    }
                    menuSwitcher = true;
                    break;
-               case 5:
-                   adminMenu();
+               case 2:
+                   createParent();
                    menuSwitcher = true;
                    break;
+               case 3:
+                   displayParentList();
+                   menuSwitcher = true;
+                   break;
+               case 4:
+                   adminMenu();
+                   menuSwitcher = true;
            }
        }
 
@@ -261,9 +252,7 @@ public class AdminMenu {
     public void createParent(){
         App.getController().createParent();
     }
-    public void deleteParent(){
-        App.getController().deleteParent();
-    }
+
     public void displayParentList(){
         App.getController().displayParentList();
     }
@@ -402,7 +391,7 @@ public class AdminMenu {
                     menuSwitcher = true;
                     break;
                 case 2:
-                    deleteActivity();
+
                     menuSwitcher = true;
                     break;
                 case 3:
@@ -420,9 +409,7 @@ public class AdminMenu {
     public void createActivity(){
         App.getController().createActivity();
     }
-    public void deleteActivity(){
-        App.getController().deleteActivity();
-    }
+
     public void displayAcitivties() {
         App.getController().displayAcitivties();
     }
