@@ -44,6 +44,9 @@ public class Service {
         //code to to select data from sql database
         // select all from parent + join with telephone_list
     }
+    public void displayOneParent(){ //added no sql comment
+        //code
+    }
     public void createTeacher(){
         //code to to insert data to sql database
         // insert query - WIP

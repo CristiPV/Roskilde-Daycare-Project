@@ -18,6 +18,9 @@ public class Controller {
     public static void displayParentList(){
         service.displayParentList();
     }
+    public static void displayOneParent(){
+        service.displayOneParent();
+    }
     public static void createTeacher(){
         service.createTeacher();
     }
