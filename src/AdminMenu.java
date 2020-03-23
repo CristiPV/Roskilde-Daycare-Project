@@ -1,11 +1,9 @@
 import java.util.Scanner;
 
 public class AdminMenu {
-<<<<<<< Updated upstream
 
-=======
     // scanner for user input
->>>>>>> Stashed changes
+
     private Scanner console = new Scanner(System.in);
     // constructor
     public AdminMenu () {
