@@ -11,6 +11,8 @@ public class MainMenu {
     with basic prints
     */
     public void signInMenu() {
+        AdminMenu adminMenu=new AdminMenu();
+        TeacherMenu teacherMenu=new TeacherMenu();
         System.out.println(" ______________________________");
         System.out.println("|          Roskilde            |    ");
         System.out.println("|     ______________________   |   ");
@@ -25,9 +27,9 @@ public class MainMenu {
         answer = console.next();
         System.out.println("|______________________________|  ");
         if (answer.equalsIgnoreCase("123")) {
-            //adminMenu();
+            adminMenu.adminMenu();
         } else {
-            //teacherMenu();
+            teacherMenu.teacherMenu();
         }
     }
 
