@@ -1,7 +1,6 @@
 import java.sql.*;
 
 public class DBConnection {
-    //why there is no constructor?????????
     /*
     This is the class that sets up the connection to the online SQL Database.
     It is used for running queries on the Database.
@@ -19,7 +18,7 @@ public class DBConnection {
     // Returns a ResultSet containing metadata of the query.
     // NEED TO CHECK : is it good practice to set up a new connection for each query ?
     //
-    public static ResultSet sendQuery(String query) {
+    public static ResultSet sendQuery(String query) { // Select Queries only
         try {
             // Sets up the connection to the DB
             Class.forName("com.mysql.jdbc.Driver");

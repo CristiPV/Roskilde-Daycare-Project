@@ -15,9 +15,6 @@ public class Controller {
     public static void createParent(){
         service.createParent();
     }
-    public static void deleteParent(){
-        service.deleteParent();
-    }
     public static void displayParentList(){
         service.displayParentList();
     }
@@ -58,9 +55,8 @@ public class Controller {
     public static void createSchedule(){
         service.createSchedule();
     }
-    public static void displaySchedule()
-    {
-        service.displaySchedule();
+    public static void deleteSchedule(){
+        service.deleteSchedule();
     }
     public static void deleteSchedule()
     {
@@ -68,9 +64,6 @@ public class Controller {
     }
     public static void createActivity(){
         service.createActivity();
-    }
-    public static void deleteActivity(){
-        service.deleteActivity();
     }
     public static void displayAcitivties(){
         service.displayAcitivties();

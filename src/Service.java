@@ -2,58 +2,71 @@ import java.util.Scanner;
 
 public class Service {
     static Scanner scanner = new Scanner(System.in);
-    private DBConnection dbConnection = new DBConnection();
-    //static DBConnection????
+
     public Service() {
     }
 
     public void createChild(){
         //code to to insert data to sql database
+        // Insert Query
     }
     public void deleteChild(){
         //code to to delete data from sql database
+        // if parent has no more children in the DB, then delete the parent associated with the child.
+        // delete telephone_list entries related to the parent
+        // Delete the waiting_list entries tied to the child
+        // Delete specific row ( id )
     }
     public void displayChildList(){
         //code to to select data from sql database
+        // select all from child + join with parent first & last name + phone number
     }
     public void createParent(){
         //code to to insert data to sql database
-    }
-    public void deleteParent(){
-        //code to to delete data from sql database
+        // Insert Query
     }
     public void displayParentList(){
         //code to to select data from sql database
+        // select all from parent + join with telephone_list
     }
     public void createTeacher(){
         //code to to insert data to sql database
+        // insert query - WIP
     }
     public void deleteTeacher(){
         //code to to delete data from sql database
+        // delete teacher and associated appointments
     }
     public void displayTeacherList(){
         //code to to select data from sql database
+        // select all from teacher
     }
     public void createAppointment(){
         //code to to insert data to sql database
+        // create an appointment and delete the waiting_list entry for the corresponding child
     }
     public void deleteAppointment(){
         //code to to delete data from sql database
+        // delete appointment
     }
     public void displayAppointmentList(){
         //code to to select data from sql database
+        // select all from appointment + join with teacher name + child name + parent name
     }
     public static void displayRowFromAppointmentList(){ // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
         //sql
     }
     public void createRecordInWaitingList(){
         //code to to insert data to sql database
+        // insert query
     }
     public void deleteRecordInWaitingList(){
         //code to to delete data from sql database
+        // delete query
     }
     public void displayWaitingList(){
         //code to to select data from sql database
+        // select all + join with child name + parent name
     }
     public void displayRowFromWaitingList(){ //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
@@ -61,38 +74,48 @@ public class Service {
     }
     public void createSchedule(){
         //code to to insert data to sql database
+        // insert query
     }
     public void deleteSchedule(){
         //code to to delete data from sql database
+        //  delete group + entries in schedule_has_activity
     }
     public void displaySchedule(){
         //code to to select data from sql database
+        // select all from schedule + activities that it has
     }
     public void createActivity(){
         //code to to insert data to sql database
+        // insert query
     }
-    public void deleteActivity(){
-        //code to to delete data from sql database
-    }
+
     public void displayAcitivties(){
         //code to to select data from sql database
+        // select all
     }
     public void createInvoice(){
         //code to to insert data to sql database
+        // insert
     }
     public void deleteInvoice(){
         //code to to delete data from sql database
+        // delete
     }
     public void displayInvoicesList(){
-        //code to to select data from sql database
+        //code to to select data from sql database - WIP
+        // select all
+        // if possible, add join for teacher name &  parent name
     }
     public void createGroup(){
         //code to to insert data to sql database
+        // insert
     }
     public void deleteGroup(){
         //code to to delete data from sql database
+        // delete group
     }
     public void displayGroups(){
         //code to to select data from sql database
+        // select all from group + join on teacher name
     }
 }

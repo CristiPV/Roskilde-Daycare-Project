@@ -1,3 +1,5 @@
+import org.w3c.dom.ls.LSOutput;
+
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.*;
@@ -24,6 +26,7 @@ public class Menu
         DBConnection.executeQuery("INSERT INTO child(child_id, first_name, last_name, birth_date, sex, age, joined_date, group_id, parent_id) VALUES\n" +
                                   "(" + id + ",\"" + firstName + "\", \"" + lastName + "\", \"" + birth_date + "\", \"" + sex + "\", " + age + ", \"" + joinedDate + "\", " + groupID + ", " + parentID + ");");
     }
+
 
     public static void deleteRow( int id ) {
         DBConnection.executeQuery("DELETE FROM child WHERE child_id = " + id + ";");
