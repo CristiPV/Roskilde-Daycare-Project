@@ -43,6 +43,9 @@ public class Service {
     public void displayAppointmentList(){
         //code to to select data from sql database
     }
+    public static void displayRowFromAppointmentList(){ // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        //sql
+    }
     public void createRecordInWaitingList(){
         //code to to insert data to sql database
     }
@@ -52,19 +55,17 @@ public class Service {
     public void displayWaitingList(){
         //code to to select data from sql database
     }
+    public void displayRowFromWaitingList(){ //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+        //code
+    }
     public void createSchedule(){
         //code to to insert data to sql database
     }
-    public void deleteAllSchedule(){
+    public void deleteSchedule(){
         //code to to delete data from sql database
     }
-    public void displayAllSchedule(){
-        //code to to select data from sql database
-    }
-    public void deleteRecordInSchedule(){
-        //code to to delete data from sql database
-    }
-    public void displayRecordInSchedule(){
+    public void displaySchedule(){
         //code to to select data from sql database
     }
     public void createActivity(){

@@ -39,6 +39,9 @@ public class Controller {
     public static void displayAppointmentList(){
         service.displayAppointmentList();
     }
+    public static void displayRowFromAppointmentList(){
+        service.displayRowFromAppointmentList();
+    }
     public static void createRecordInWaitingList(){
         service.createRecordInWaitingList();
     }
@@ -48,20 +51,20 @@ public class Controller {
     public static void displayWaitingList(){
         service.displayWaitingList();
     }
+    public static void displayRowFromWaitingList(){
+
+        service.displayWaitingList();
+    }
     public static void createSchedule(){
         service.createSchedule();
     }
-    public static void deleteAllSchedule(){
-        service.deleteAllSchedule();
+    public static void displaySchedule()
+    {
+        service.displaySchedule();
     }
-    public static void displayAllSchedule(){
-        service.displayAllSchedule();
-    }
-    public static void deleteRecordInSchedule(){
-        service.deleteRecordInSchedule();
-    }
-    public static void displayRecordInSchedule(){
-        service.displayRecordInSchedule();
+    public static void deleteSchedule()
+    {
+        service.deleteSchedule();
     }
     public static void createActivity(){
         service.createActivity();
