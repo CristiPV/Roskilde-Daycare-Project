@@ -208,8 +208,7 @@ public class AdminMenu {
        System.out.println("|______________________________|   ");
        System.out.println("|     1.Display Parents        |  ");
        System.out.println("|     2.Add Parent in System   |  ");
-       System.out.println("|     3.Remove Parent in System|  ");//delete????
-       System.out.println("|     4.Back                   |  ");
+       System.out.println("|     3.Back                   |  ");
        System.out.println("|______________________________|   ");
        System.out.println("        Select choice...        ");
 
@@ -222,10 +221,10 @@ public class AdminMenu {
                            "  (1)All OR (2)One instance?  ");
                    int displayChoice = console.nextInt();
                    if (displayChoice == 1) {
-
+                       displayParentList();
                    } else if (displayChoice == 2) {
-
                        System.out.println("Enter ID Or Name probably....");
+                       displayOneParent(); //added
                    } else {
                        System.out.println("You have entered an invalid choice try again!");
                        parentsMenu();
@@ -237,10 +236,6 @@ public class AdminMenu {
                    menuSwitcher = true;
                    break;
                case 3:
-                   displayParentList();
-                   menuSwitcher = true;
-                   break;
-               case 4:
                    adminMenu();
                    menuSwitcher = true;
            }
@@ -253,6 +248,9 @@ public class AdminMenu {
 
     public void displayParentList(){
         App.getController().displayParentList();
+    }
+    public void displayOneParent(){
+        App.getController().displayOneParent();
     }
     //Menu method for the admin to manage the groups
     public void groupsMenu() {
@@ -375,9 +373,8 @@ public class AdminMenu {
                            "|        Activities Menu       |");
         System.out.println("|______________________________|   ");
         System.out.println("|      1.Create Activity     |  ");
-        System.out.println("|      2.Delete Activity     |  ");
-        System.out.println("|      3.Display Activities    |  ");
-        System.out.println("|      4.Back                  |  ");
+        System.out.println("|      2.Display Activities    |  ");
+        System.out.println("|      3.Back                  |  ");
         System.out.println("|______________________________|   ");
         System.out.println("        Select choice...        ");
 
@@ -389,14 +386,10 @@ public class AdminMenu {
                     menuSwitcher = true;
                     break;
                 case 2:
-
-                    menuSwitcher = true;
-                    break;
-                case 3:
                     displayAcitivties();
                     menuSwitcher = true;
                     break;
-                case 4:
+                case 3:
                     scheduleMenu();
                     menuSwitcher = true;
                     break;
@@ -507,7 +500,7 @@ public class AdminMenu {
                     menuSwitcher = true;
                     break;
                 case 2:
-                    deleteInvoice(); //???????????????????????????????????????????????????????????
+                    deleteInvoice();
                     menuSwitcher = true;
                     break;
                 case 3:

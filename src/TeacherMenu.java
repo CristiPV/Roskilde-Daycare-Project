@@ -3,9 +3,9 @@ import java.util.Scanner;
 public class TeacherMenu {
     // scanner for user input
     private Scanner console = new Scanner(System.in);
+
     //constructor
-    public TeacherMenu() {
-    };
+    public TeacherMenu() {}
 
     // Teacher Logged in menu, switches through teacher menu functions
     public void teacherMenu() {
@@ -39,20 +39,21 @@ public class TeacherMenu {
                     break;
                 case 3:
                     groupsMenu();
-                    menuSwitcher=true;
+                    menuSwitcher = true;
                     break;
                 case 4:
-                    menuSwitcher=true;
+                    menuSwitcher = true;
                     break;
                 case 5:
-                    menuSwitcher=true;
+                    menuSwitcher = true;
                     break;
                 case 6:
-                    menuSwitcher=true;
+                    menuSwitcher = true;
                     break;
             }
         }
     }
+
     //Menu method for the appointments database and functions you can use there
     public void appointmentsDatabaseMenu() {
         boolean menuSwitcher = false;
@@ -74,10 +75,11 @@ public class TeacherMenu {
         while (!menuSwitcher) {
             switch (choice) {
                 case 1:
-                    //addAppointment();
+                    createAppointment();
                     menuSwitcher = true;
                     break;
                 case 2:
+                    deleteAppointment();
                     menuSwitcher = true;
                     break;
                 case 3:
@@ -85,18 +87,14 @@ public class TeacherMenu {
                     System.out.println("|______________________________|   ");
                     System.out.println("| What do you want to display  |" +
                             "  (1)All OR (2)One instance?  ");
-                    int displayChoice=console.nextInt();
-                    if(displayChoice==1)
-                    {
+                    int displayChoice = console.nextInt();
+                    if (displayChoice == 1) {
+                        displayAppointmentList();
+                    } else if (displayChoice == 2) {
 
-                    }
-                    else if(displayChoice==2)
-                    {
-
-                        System.out.println("Enter ID Or Name probably....");
-                    }
-                    else
-                    {
+                        System.out.println("Enter Parent ID:");
+                        displayRowFromAppointmentList();
+                    } else {
                         System.out.println("You have entered an invalid choice try again!");
                         appointmentsDatabaseMenu();
                     }
@@ -110,6 +108,23 @@ public class TeacherMenu {
         }
 
     }
+
+    public void createAppointment() {
+        App.getController().createAppointment();
+    }
+
+    public void deleteAppointment() {
+        App.getController().deleteAppointment();
+    }
+
+    public void displayAppointmentList() {
+        App.getController().displayAppointmentList();
+    }
+
+    public void displayRowFromAppointmentList() {
+        App.getController().displayRowFromAppointmentList();
+    }
+
     //waiting list method menu
     public void waitingListMenu() {
         boolean menuSwitcher = false;
@@ -131,27 +146,25 @@ public class TeacherMenu {
         while (!menuSwitcher) {
             switch (choice) {
                 case 1:
+                    createRecordInWaitingList();
                     menuSwitcher = true;
                     break;
                 case 2:
+                    deleteRecordInWaitingList();
                     menuSwitcher = true;
                     break;
                 case 3:
                     System.out.println("|______________________________|   ");
                     System.out.println("| What do you want to display  |" +
                             "  (1)All OR (2)One instance? ");
-                    int displayChoice=console.nextInt();
-                    if(displayChoice==1)
-                    {
+                    int displayChoice = console.nextInt();
+                    if (displayChoice == 1) {
+                        displayWaitingList();
+                    } else if (displayChoice == 2) {
 
-                    }
-                    else if(displayChoice==2)
-                    {
-
-                        System.out.println("Enter ID Or Name probably....");
-                    }
-                    else
-                    {
+                        System.out.println("Enter Parent ID:");
+                        displayRowFromWaitingList();
+                    } else {
                         System.out.println("You have entered an invalid choice try again!");
                         waitingListMenu();
                     }
@@ -164,6 +177,25 @@ public class TeacherMenu {
             }
         }
     }
+
+    public void createRecordInWaitingList() {
+        App.getController().createRecordInWaitingList();
+    }
+
+    public void deleteRecordInWaitingList() {
+        App.getController().deleteRecordInWaitingList();
+    }
+
+    public void displayWaitingList() {
+
+        App.getController().displayWaitingList();
+    }
+
+    public void displayRowFromWaitingList() {
+
+        App.getController().displayRowFromWaitingList();
+    }
+
     //Menu method for the admin to manage the groups
     public void groupsMenu() {
         boolean menuSwitcher = false;
@@ -172,7 +204,7 @@ public class TeacherMenu {
         System.out.println("|     _______________________  |   ");
         System.out.println("|              Daycare         |  ");
         System.out.println("|______________________________|  \n" +
-                           "|           Groups Menu        |");
+                "|           Groups Menu        |");
         System.out.println("|______________________________|   ");
         System.out.println("|      1.Add Group             |  ");
         System.out.println("|      2.Delete Group          |  ");
@@ -185,30 +217,15 @@ public class TeacherMenu {
         while (!menuSwitcher) {
             switch (choice) {
                 case 1:
+                    createGroup();
                     menuSwitcher = true;
                     break;
                 case 2:
+                    deleteGroup();
                     menuSwitcher = true;
                     break;
                 case 3:
-                    System.out.println("|______________________________|   ");
-                    System.out.println("| What do you want to display  |\n" +
-                            "  (1)All OR (2)One instance?  ");
-                    int displayChoice=console.nextInt();
-                    if(displayChoice==1)
-                    {
-
-                    }
-                    else if(displayChoice==2)
-                    {
-
-                        System.out.println("Enter ID Or Name probably....");
-                    }
-                    else
-                    {
-                        System.out.println("You have entered an invalid choice try again!");
-                        groupsMenu();
-                    }
+                    displayGroups();
                     menuSwitcher = true;
                     break;
                 case 4:
@@ -219,7 +236,23 @@ public class TeacherMenu {
         }
 
     }
+
+    public void createGroup() {
+        App.getController().createGroup();
+    }
+
+    public void deleteGroup() {
+        App.getController().deleteGroup();
+    }
+
+    public void displayGroups() {
+        App.getController().displayGroups();
+    }
+
     //Display Schedules
-    public void Schedules(){}
-    public void phoneList(){}
+    public void Schedules() {
+    }
+
+    public void phoneList() {
+    }
 }
