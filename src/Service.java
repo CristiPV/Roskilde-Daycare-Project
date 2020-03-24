@@ -145,7 +145,7 @@ public class Service {
         }
 
     }
-    public void displayOneParent( ){ //added no sql comment
+    public void displayOneParent( ){
         System.out.println("Select parent : ");
         int id = scanner.nextInt();
         ResultSet rs = DBConnection.sendQuery("SELECT *, telephone_list.phone_number\n" +
@@ -165,28 +165,27 @@ public class Service {
             e.printStackTrace();
         }
     }
-    public void createTeacher(){
+    public void createTeacher(){ //works
         //code to to insert data to sql database
         // insert query - WIP
         System.out.println("Enter first name : ");
         String firstName = scanner.next();
         System.out.println("Enter last name : ");
         String lastName = scanner.next();
-        System.out.println("Enter birth day : ");
+        System.out.println("Enter birth day (YYYY-MM-DD) : ");
         String birth_date = scanner.next();
-        System.out.println("Enter sex : ");
+        System.out.println("Enter sex (F/M) : ");
         String sex = scanner.next();
         System.out.println("Enter salary : ");
-        double salary = scanner.nextDouble();
+        int salary = scanner.nextInt();
         System.out.println("Enter group ID : ");
         int group_id = scanner.nextInt();
 
-        DBConnection.executeQuery("INSERT INTO teacher(first_name, last_name, birth_date, sex, salary, group_id, super_id) VALUES\n" +
-                "(" + firstName + "\", \"" + lastName + "\", \"" + birth_date + "\", \"" + sex + "\", " + salary + ", \"" + group_id + "\", " + 101 +");");
-
-        new AdminMenu();
+        DBConnection.executeQuery("INSERT INTO teacher (first_name, last_name, birth_date, sex, salary, group_id, super_id) VALUES\n" +
+                "(\"" + firstName + "\", \"" + lastName + "\", \"" + birth_date + "\", \"" + sex + "\", " + salary + ", \"" + group_id + "\", " + 101 +");");
+        System.out.println("You created a teacher.");
     }
-    public void deleteTeacher(){ // didn't test it
+    public void deleteTeacher(){ // works
         //code to to delete data from sql database
         // delete teacher and associated appointments
         System.out.println("Enter teacher ID : ");
@@ -194,6 +193,7 @@ public class Service {
         DBConnection.executeQuery("DELETE FROM appointment WHERE teacher_id = " + teacher_id + ";");
         DBConnection.executeQuery("DELETE FROM teacher WHERE teacher_id = " + teacher_id + ";");
 
+        System.out.println("You created a teacher.");
         new AdminMenu();
     }
     public void displayTeacherList(){
@@ -257,7 +257,7 @@ public class Service {
         //code to to delete data from sql database
         //  delete group + entries in schedule_has_activity
     }
-    public void displaySchedule(){ //doesn't work ////
+    public void displaySchedule(){ //works
         //code to to select data from sql database
         // select all from schedule + activities that it has
         ResultSet rs = DBConnection.sendQuery("SELECT schedule.schedule_id, schedule.nap_hrs_daily, schedule.activity_hrs_weekly, activity.name\n"+

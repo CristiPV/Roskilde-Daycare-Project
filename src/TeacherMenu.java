@@ -180,6 +180,7 @@ public class TeacherMenu {
 
     public void createRecordInWaitingList() {
         App.getController().createRecordInWaitingList();
+        waitingListMenu();
     }
 
     public void deleteRecordInWaitingList() {
