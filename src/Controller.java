@@ -53,7 +53,7 @@ public class Controller {
     }
     public static void displayRowFromWaitingList(){
 
-        service.displayWaitingList();
+        service.displayRowFromWaitingList();
     }
     public static void createSchedule(){
         service.createSchedule();

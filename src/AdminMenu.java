@@ -434,7 +434,7 @@ public class AdminMenu {
                     break;
                 case 3:
                     System.out.println("|______________________________|   ");
-                    System.out.println("| What do you want to display  |" +
+                    System.out.println("| What do you want to display  |\n" +
                                        "  (1)All OR (2)One instance? ");
                     int displayChoice=console.nextInt();
                     if(displayChoice==1)
@@ -443,8 +443,6 @@ public class AdminMenu {
                     }
                     else if(displayChoice==2)
                     {
-
-                        System.out.println("Enter Parent ID");
                         displayRowFromWaitingList();
                     }
                     else

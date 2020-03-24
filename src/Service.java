@@ -200,6 +200,24 @@ public class Service {
     public void displayTeacherList(){
         //code to to select data from sql database
         // select all from teacher
+        ResultSet rs=DBConnection.sendQuery("SELECT * FROM teacher");
+        try {
+            while(rs.next())
+            {
+                System.out.println("ID: "+rs.getString("teacher_id")+
+                        "|First Name: "+rs.getString("first_name")+
+                        "|Last Name: "+rs.getString("last_name")+
+                        "|Birthday: "+rs.getString("birth_date")+
+                        "|Sex: "+rs.getString("sex")+
+                        "|Salary: "+rs.getString("salary")+
+                        "|Group ID: "+rs.getString("group_id"));
+            }
+        }
+        catch (SQLException e)
+        {
+            e.printStackTrace();
+
+        }
     }
     public void createAppointment(){ //check if works
         //code to to insert data to sql database
@@ -255,10 +273,21 @@ public class Service {
     public void createRecordInWaitingList(){
         //code to to insert data to sql database
         // insert query
+        System.out.println("Enter today's date: ");
+        String dateAdded=scanner.next();
+        System.out.println("Enter reason for adding: ");
+        String reason=scanner.next();
+        System.out.println("Enter child ID: (if none: enter -1)");
+        String child_id=scanner.next();
+        DBConnection.executeQuery("INSERT INTO waiting_list(date_added,reason,child_id) \n" +
+                "VALUES(\""+ dateAdded + "\", \""+reason+"\",\""+child_id+");");
     }
     public void deleteRecordInWaitingList(){
         //code to to delete data from sql database
         // delete query
+        System.out.println("Enter Child ID to Delete: ");
+        int child_id=scanner.nextInt();
+        DBConnection.executeQuery("DELETE FROM waiting_list WHERE child_id="+child_id);
     }
     public void displayWaitingList(){ //chech if works
         //code to to select data from sql database
@@ -277,9 +306,28 @@ public class Service {
             e.printStackTrace();
         }
     }
-    public void displayRowFromWaitingList(){
+    public void displayRowFromWaitingList() {
         // select all from waiting_list for a given child id
         //code
+        System.out.println("Enter child Id to show: ");
+        int child_id = scanner.nextInt();
+        ResultSet rs = DBConnection.sendQuery("SELECT waiting_list.*,child.first_name,child.last_name " +
+                "FROM waiting_list " +
+                "JOIN child " +
+                "On waiting_list.child_id=child.child_id " +
+                "WHERE waiting_list.child_id=" + child_id +";");
+        try {
+            while (rs.next()) {
+                // ResultSet has rows with columns accessible by using the column name
+                System.out.println("ID: " + rs.getString("entry_id") +
+                        "|First Name" + rs.getString("first_name") +
+                        "|Last Name" + rs.getString("last_name") +
+                        "|Date Added: " + rs.getString("date_added") +
+                        "|Reason: " + rs.getString("reason"));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
     public void createSchedule(){ //check if works
         //code to to insert data to sql database
