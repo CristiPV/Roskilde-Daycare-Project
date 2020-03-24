@@ -248,6 +248,26 @@ public class Service {
     public void displayAppointmentList(){
         //code to to select data from sql database
         // select all from appointment + join with teacher name + child name + parent name
+        ResultSet rs = DBConnection.sendQuery("SELECT  appointment.*, teacher.first_name AS teacher_first_name, teacher.last_name AS teacher_last_name, \n" +
+                "child.first_name AS child_first_name, parent.first_name AS parent_first_name, parent.last_name AS parent_last_name\n" +
+                "FROM appointment\n" +
+                "JOIN teacher\n" +
+                "ON appointment.teacher_id = teacher.teacher_id\n" +
+                "JOIN child\n" +
+                "ON appointment.child_id = child.child_id\n" +
+                "JOIN parent\n" +
+                "ON child.parent_id = parent.parent_id;");
+        try {
+            while (rs.next()) {
+                System.out.println("ID : " + rs.getString("appointment.appointment_id") + " | Date : " + rs.getString("appointment.date") + " | Time : " +
+                        rs.getString("appointment.time") + " | Child ID : " + rs.getString("appointment.child_id") + " | Teacher ID :" +
+                        rs.getString("appointment.teacher_id") + " | Teacher Name : " + rs.getString("teacher_first_name") + " " + rs.getString("teacher_last_name") +
+                        " | Child Name : " + rs.getString("child_first_name ") + " | Parent Name : " + rs.getString("parent_first_name") + rs.getString("parent_last_name"));
+            }
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+
     }
     public static void displayRowFromAppointmentList(){ // works
         // select all from appointment for a given teacher id
