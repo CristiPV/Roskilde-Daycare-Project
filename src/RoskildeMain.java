@@ -8,8 +8,8 @@ public class RoskildeMain {
     public static void main(String[] args)
     {
         // Login Credentials
-        String username = "";
-        String password = "";
+        String username = "administrator";
+        String password = "m8qhhxm0qwu";
 
         selectDB(URLDB);
         selectSchema(SCHEMA);
