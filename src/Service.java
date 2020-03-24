@@ -26,6 +26,7 @@ public class Service {
         String joinedDate = scanner.next();
         System.out.println("Enter parent ID : ");
         int parentID = scanner.nextInt();
+        System.out.println("You added a child to the system.");
         DBConnection.executeQuery("INSERT INTO child(first_name, last_name, birth_date, sex, age, joined_date, parent_id) VALUES\n" +
                 "(\"" + firstName + "\", \"" + lastName + "\", \"" + birth_date + "\", \"" + sex + "\", " +
                 age + ", \"" + joinedDate + "\", " + parentID + ");");
@@ -38,6 +39,7 @@ public class Service {
         // Delete specific row ( id )
         System.out.println("Select child : ");
         int id = scanner.nextInt();
+
         ResultSet pid = DBConnection.sendQuery("SELECT parent_id FROM child\n" +
                 "WHERE child_id = " + id + ";");
 
@@ -62,6 +64,7 @@ public class Service {
         }catch (SQLException e) {
             e.printStackTrace();
         }
+        System.out.println("You removed child from the system.");
     }
     public void displayChildList(){
         //code to to select data from sql database
@@ -69,7 +72,8 @@ public class Service {
         ResultSet rs = DBConnection.sendQuery("SELECT child.child_id, child.first_name, child.last_name, parent.first_name AS \"parent_first_name\", parent.last_name AS \"parent_Last_name\"\n" +
                                                 "FROM child\n" +
                                                 "JOIN parent\n" +
-                                                "ON child.parent_id = parent.parent_id;");
+                                                "ON child.parent_id = parent.parent_id\n" +
+                                                 "ORDER BY child.child_id;");
         try {
             while (rs.next()) {
                 System.out.println("ID : " + rs.getString("child.child_id") + " | " +

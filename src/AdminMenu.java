@@ -143,7 +143,7 @@ public class AdminMenu {
         System.out.println("|______________________________|   ");
         System.out.println("|    1.Add Teacher in System   |  ");
         System.out.println("|    2.Remove Teacher in System|  ");
-        System.out.println("|    3.Display Children        |  ");
+        System.out.println("|    3.Display Teacher List    |  ");
         System.out.println("|    4.Back                    |  ");
         System.out.println("|______________________________|   ");
         System.out.println("        Select choice...        ");
@@ -164,21 +164,6 @@ public class AdminMenu {
                     menuSwitcher = true;
                     break;
                 case 4:
-                    System.out.println("|______________________________|   ");
-                    System.out.println("| What do you want to display  |" +
-                            "  (1)All OR (2)One instance?  ");
-                    int displayChoice = console.nextInt();
-                    if (displayChoice == 1) {
-
-                    } else if (displayChoice == 2) {
-                        System.out.println("Enter ID Or Name probably....");
-                    } else {
-                        System.out.println("You have entered an invalid choice try again!");
-                        teacherInfoMenu();
-                    }
-                    menuSwitcher = true;
-                    break;
-                case 5:
                     adminMenu();
                     menuSwitcher = true;
                     break;
