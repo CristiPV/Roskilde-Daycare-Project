@@ -362,20 +362,19 @@ public class Service {
         int nap_hours_daily = scanner.nextInt();
         System.out.println("Enter number of activity hours weekly : ");
         int activity_hours_weekly = scanner.nextInt();
-
-        DBConnection.executeQuery("INSERT INTO schedule(nap_hrs_daily, activity_hrs_weekly)\n" +
-                "                  VALUES (" + nap_hours_daily + ", \" " + activity_hours_weekly + ";");
+        DBConnection.executeQuery("INSERT INTO schedule(nr_activities, nap_hrs_daily, activity_hrs_weekly)\n" +
+                "                  VALUES (" + 0 + "," + nap_hours_daily + ", " + activity_hours_weekly + ");");
+        System.out.println("You created a schedule in the system.");
     }
-    public void deleteSchedule(){ //check if works
+    public void deleteSchedule(){ //fix if in the group
         //code to to delete data from sql database
         // entries in schedule_has_activity
         System.out.println("Enter schedule ID : ");
-        System.out.println("Press 0 to go back : ");
         int schedule_id = scanner.nextInt();
 
         DBConnection.executeQuery("DELETE FROM schedule_has_activity WHERE schedule_has_activity.schedule_id = " + schedule_id + ";");
         DBConnection.executeQuery("DELETE FROM schedule WHERE schedule.schedule_id = " + schedule_id + ";");
-
+        System.out.println("You deleted a schedule mfrom the system.");
     }
     public void displaySchedule(){ //works
         //code to to select data from sql database
