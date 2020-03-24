@@ -3,8 +3,8 @@ public class Controller {
 
     public Controller(){
     }
-    public static void createChild(String firstName, String lastName, String birth_date, String sex, int age, String joinedDate, int parentID){
-        service.createChild(firstName, lastName, birth_date, sex, age, joinedDate, parentID);
+    public static void createChild(){
+        service.createChild();
     }
     public static void deleteChild(){
         service.deleteChild();
@@ -12,8 +12,8 @@ public class Controller {
     public static void displayChildList(){
         service.displayChildList();
     }
-    public static void createParent( String firstName, String lastName, String birthDate, String sex, String phoneNo, String phoneNoAlt ){
-        service.createParent(firstName, lastName, birthDate, sex, phoneNo, phoneNoAlt);
+    public static void createParent(){
+        service.createParent();
     }
     public static void displayParentList(){
         service.displayParentList();
@@ -88,4 +88,5 @@ public class Controller {
     public static void displayGroups(){
         service.displayGroups();
     }
+    public static void addChildrenToGroup() {service.addChildrenToGroup();}
 }
