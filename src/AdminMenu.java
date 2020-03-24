@@ -122,7 +122,7 @@ public class AdminMenu {
         }
     }
     public void createChild(){
-        //App.getController().createChild();
+        App.getController().createChild();
     }
     public void deleteChild(){
         App.getController().deleteChild();
@@ -243,7 +243,7 @@ public class AdminMenu {
 
    }
     public void createParent(){
-        //App.getController().createParent();
+        App.getController().createParent();
     }
 
     public void displayParentList(){
