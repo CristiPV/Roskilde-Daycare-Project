@@ -88,4 +88,5 @@ public class Controller {
     public static void displayGroups(){
         service.displayGroups();
     }
+    public static void addChildrenToGroup() {service.addChildrenToGroup();}
 }
