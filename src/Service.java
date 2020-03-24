@@ -352,4 +352,18 @@ public class Service {
         //code to to select data from sql database
         // select all from group + join on teacher name
     }
+    public void addChildrenToGroup () {
+        //code to select a group and then add a few children
+        System.out.println("Select group : ");
+        int groupID = scanner.nextInt();
+        System.out.println("How many children do you want to add : ");
+        int nr = scanner.nextInt();
+        for (int i = 1; i <= nr; i ++){
+            System.out.println("Select child : ");
+            int childID = scanner.nextInt();
+            DBConnection.executeQuery("UPDATE child\n" +
+                    "SET group_id = " + groupID + "\n" +
+                    "WHERE child_id = " + childID + ";");
+        }
+    }
 }
