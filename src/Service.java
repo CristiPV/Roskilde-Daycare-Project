@@ -280,13 +280,27 @@ public class Service {
         // select all from waiting_list for a given child id
         //code
     }
-    public void createSchedule(){
+    public void createSchedule(){ //check if works
         //code to to insert data to sql database
         // insert query
+        System.out.println("Enter number of nap hours daily : ");
+        int nap_hours_daily = scanner.nextInt();
+        System.out.println("Enter number of activity hours weekly : ");
+        int activity_hours_weekly = scanner.nextInt();
+
+        DBConnection.executeQuery("INSERT INTO schedule(nap_hrs_daily, activity_hrs_weekly)\n" +
+                "                  VALUES (" + nap_hours_daily + ", \" " + activity_hours_weekly + ";");
     }
-    public void deleteSchedule(){
+    public void deleteSchedule(){ //check if works
         //code to to delete data from sql database
-        //  delete group + entries in schedule_has_activity
+        // entries in schedule_has_activity
+        System.out.println("Enter schedule ID : ");
+        System.out.println("Press 0 to go back : ");
+        int schedule_id = scanner.nextInt();
+
+        DBConnection.executeQuery("DELETE FROM schedule_has_activity WHERE schedule_has_activity.schedule_id = " + schedule_id + ";");
+        DBConnection.executeQuery("DELETE FROM schedule WHERE schedule.schedule_id = " + schedule_id + ";");
+
     }
     public void displaySchedule(){ //works
         //code to to select data from sql database
