@@ -9,7 +9,7 @@ public class Service {
     public Service() {
     }
 
-    public void createChild(  ){
+    public void createChild(  ){ //works
         //code to to insert data to sql database
         // Insert Query
         System.out.println("Enter first name : ");
@@ -31,7 +31,7 @@ public class Service {
                 "(\"" + firstName + "\", \"" + lastName + "\", \"" + birth_date + "\", \"" + sex + "\", " +
                 age + ", \"" + joinedDate + "\", " + parentID + ");");
     }
-    public void deleteChild(){
+    public void deleteChild(){ //works
         //code to to delete data from sql database
         // if parent has no more children in the DB, then delete the parent associated with the child.
         // delete telephone_list entries related to the parent
@@ -66,7 +66,7 @@ public class Service {
         }
         System.out.println("You removed child from the system.");
     }
-    public void displayChildList(){
+    public void displayChildList(){ //works
         //code to to select data from sql database
         // select all from child + join with parent first & last name
         ResultSet rs = DBConnection.sendQuery("SELECT child.child_id, child.first_name, child.last_name, parent.first_name AS \"parent_first_name\", parent.last_name AS \"parent_Last_name\"\n" +
@@ -84,7 +84,7 @@ public class Service {
             e.printStackTrace();
         }
     }
-    public void createParent(){
+    public void createParent(){ //works
         //code to to insert data to sql database
         // Insert Query
         // Adds the parent into the DB
@@ -98,7 +98,7 @@ public class Service {
         String sex = scanner.next();
         System.out.println("Enter phone number : ");
         String phoneNo = scanner.next();
-        System.out.println("Enter alternate phone number (If none, press enter) : ");
+        System.out.println("Enter alternate phone number (If none, enter 0) : ");
         String phoneNoAlt = scanner.next();
         DBConnection.executeQuery("INSERT INTO parent(first_name, last_name, birth_date, sex) VALUES (\"" + firstName + "\", \"" + lastName +
                 "\", \"" + birth_date + "\", \"" + sex + "\");");
@@ -123,7 +123,7 @@ public class Service {
             DBConnection.executeQuery("INSERT INTO telephone_list VALUES (\"" + phoneNoAlt + "\", " + parentID + ");");
         }
     }
-    public void displayParentList(){
+    public void displayParentList(){ //works
         //code to to select data from sql database
         // select all from parent + join with telephone_list
         ResultSet rs = DBConnection.sendQuery("SELECT *, telephone_list.phone_number\n" +
@@ -150,7 +150,7 @@ public class Service {
         }
 
     }
-    public void displayOneParent( ){
+    public void displayOneParent( ){ //works
         System.out.println("Select parent : ");
         int id = scanner.nextInt();
         ResultSet rs = DBConnection.sendQuery("SELECT *, telephone_list.phone_number\n" +
@@ -187,8 +187,8 @@ public class Service {
         int group_id = scanner.nextInt();
 
         DBConnection.executeQuery("INSERT INTO teacher (first_name, last_name, birth_date, sex, salary, group_id, super_id) VALUES\n" +
-                "(\"" + firstName + "\", \"" + lastName + "\", \"" + birth_date + "\", \"" + sex + "\", " + salary + ", \"" + group_id + "\", " + 101 +");");
-        System.out.println("You created a teacher.");
+                "(\"" + firstName + "\", \"" + lastName + "\", \"" + birth_date + "\", \"" + sex + "\", " + salary + ", " + group_id + ", " + 101 +");");
+        System.out.println("You created a teacher in the system.");
     }
     public void deleteTeacher(){ // works
         //code to to delete data from sql database
@@ -198,10 +198,10 @@ public class Service {
         DBConnection.executeQuery("DELETE FROM appointment WHERE teacher_id = " + teacher_id + ";");
         DBConnection.executeQuery("DELETE FROM teacher WHERE teacher_id = " + teacher_id + ";");
 
-        System.out.println("You created a teacher.");
+        System.out.println("You deleted a teacher from the system.");
         new AdminMenu();
     }
-    public void displayTeacherList(){
+    public void displayTeacherList(){ //works
         //code to to select data from sql database
         // select all from teacher
         ResultSet rs=DBConnection.sendQuery("SELECT * FROM teacher");
@@ -223,22 +223,22 @@ public class Service {
 
         }
     }
-    public void createAppointment(){ //check if works
+    public void createAppointment(){ //works
         //code to to insert data to sql database
         // create an appointment and delete the waiting_list entry for the corresponding child
         System.out.println("Enter appointment date (YYYY-MM-DD) : ");
         String date = scanner.next();
-        System.out.println("Enter appointment time (HH:MM:SS) : ");
-        String time = scanner.next();
+        System.out.println("Enter appointment time (HHMM) : ");
+        int time = scanner.nextInt();
         System.out.println("Enter child ID : ");
         int child_id = scanner.nextInt();
         System.out.println("Enter teacher ID : ");
-        String teacher_id = scanner.next();
+        int teacher_id = scanner.nextInt();
 
-        DBConnection.executeQuery("INSERT INTO teacher (date, time, child_id, teacher_id) VALUES\n" +
-                "(\"" + date + "\", \"" + time + "\", \"" + child_id + "\", \"" + teacher_id + ");");
+        DBConnection.executeQuery("INSERT INTO appointment (date, time, child_id, teacher_id) VALUES\n" +
+                "(\"" + date + "\"," + time + "," + child_id + "," + teacher_id + ");");
 
-        System.out.println("You created an appointment.");
+        System.out.println("You created an appointment in the system.");
 
         DBConnection.executeQuery("DELETE FROM waiting_list WHERE child_id = " + child_id + ";");
     }
@@ -248,8 +248,10 @@ public class Service {
         System.out.println("Enter an appointmnt ID : ");
         int appointment_id = scanner.nextInt();
         DBConnection.executeQuery("DELETE FROM appointment WHERE appointment_id = " + appointment_id + ";");
+
+        System.out.println("You deleted an appointment in the system.");
     }
-    public void displayAppointmentList(){
+    public void displayAppointmentList(){ //doesn't work
         //code to to select data from sql database
         // select all from appointment + join with teacher name + child name + parent name
         ResultSet rs = DBConnection.sendQuery("SELECT  appointment.*, teacher.first_name AS teacher_first_name, teacher.last_name AS teacher_last_name, \n" +

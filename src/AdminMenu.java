@@ -208,8 +208,7 @@ public class AdminMenu {
                    if (displayChoice == 1) {
                        displayParentList();
                    } else if (displayChoice == 2) {
-                       System.out.println("Enter ID Or Name probably....");
-                       displayOneParent(); //added
+                       displayOneParent();
                    } else {
                        System.out.println("You have entered an invalid choice try again!");
                        parentsMenu();
