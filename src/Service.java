@@ -315,7 +315,6 @@ public class Service {
         //code to to insert data to sql database
         // insert query
     }
-
     public void displayAcitivties(){
         //code to to select data from sql database
         // select all
@@ -383,7 +382,7 @@ public class Service {
         //code to to select data from sql database
         // select all from group + join on teacher name
     }
-    public void addChildrenToGroup () {
+    public void addChildrenToGroup () { // NEEDS TO BE INCLUDED IN MENUS
         //code to select a group and then add a few children
         System.out.println("Select group : ");
         int groupID = scanner.nextInt();
@@ -395,6 +394,19 @@ public class Service {
             DBConnection.executeQuery("UPDATE child\n" +
                     "SET group_id = " + groupID + "\n" +
                     "WHERE child_id = " + childID + ";");
+        }
+    }
+    public void addActivitiesToSchedule () { // NEEDS TO BE INCLUDED IN MENUS
+        System.out.println("Select Schedule : ");
+        int scheduleID = scanner.nextInt();
+        System.out.println("How many activities do you want to add : ");
+        int nr = scanner.nextInt();
+        for (int i = 1; i <= nr; i ++){
+            System.out.println("Select activity : ");
+            int activityID = scanner.nextInt();
+            System.out.println("How many times would you like to have the activity during the month :");
+            int instances = scanner.nextInt();
+            DBConnection.executeQuery("INSERT INTO schedule_has_activity  VALUES (" + scheduleID + ", " + activityID +", " + instances + ");");
         }
     }
 }
