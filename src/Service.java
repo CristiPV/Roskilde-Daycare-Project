@@ -1,6 +1,7 @@
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Scanner;
+import java.util.SplittableRandom;
 
 public class Service {
     static Scanner scanner = new Scanner(System.in);
@@ -200,13 +201,31 @@ public class Service {
         //code to to select data from sql database
         // select all from teacher
     }
-    public void createAppointment(){
+    public void createAppointment(){ //check if works
         //code to to insert data to sql database
         // create an appointment and delete the waiting_list entry for the corresponding child
+        System.out.println("Enter appointment date (YYYY-MM-DD) : ");
+        String date = scanner.next();
+        System.out.println("Enter appointment time (HH:MM:SS) : ");
+        String time = scanner.next();
+        System.out.println("Enter child ID : ");
+        int child_id = scanner.nextInt();
+        System.out.println("Enter teacher ID : ");
+        String teacher_id = scanner.next();
+
+        DBConnection.executeQuery("INSERT INTO teacher (date, time, child_id, teacher_id) VALUES\n" +
+                "(\"" + date + "\", \"" + time + "\", \"" + child_id + "\", \"" + teacher_id + ");");
+
+        System.out.println("You created an appointment.");
+
+        DBConnection.executeQuery("DELETE FROM waiting_list WHERE child_id = " + child_id + ";");
     }
-    public void deleteAppointment(){
+    public void deleteAppointment(){ //check if works
         //code to to delete data from sql database
         // delete appointment
+        System.out.println("Enter an appointmnt ID : ");
+        int appointment_id = scanner.nextInt();
+        DBConnection.executeQuery("DELETE FROM appointment WHERE appointment_id = " + appointment_id + ";");
     }
     public void displayAppointmentList(){
         //code to to select data from sql database
@@ -241,21 +260,48 @@ public class Service {
         //code to to delete data from sql database
         // delete query
     }
-    public void displayWaitingList(){
+    public void displayWaitingList(){ //chech if works
         //code to to select data from sql database
         // select all + join with child name + parent name
+        ResultSet rs = DBConnection.sendQuery("SELECT *, parent.firstName AS \"Parent name\", parent.lastName AS \"Parent surname\" \n" +
+                "FROM waiting_list\n" +
+                "JOIN parent\n" +
+                "ON parent.child_id = waiting_list.child_id;");
+        try {
+            rs.next();
+            System.out.println("ID : " + rs.getString("waiting_list_id") + " | Date : " + rs.getString("date") +
+                    " | Reason : " + rs.getString("reason") + " | Child ID : " + rs.getString("child_id")+ " | Parent name : " + rs.getString("Parent name")
+                    + " | Parent last name : " + rs.getString("Parent surname"));
+
+        } catch (SQLException e){
+            e.printStackTrace();
+        }
     }
     public void displayRowFromWaitingList(){
         // select all from waiting_list for a given child id
         //code
     }
-    public void createSchedule(){
+    public void createSchedule(){ //check if works
         //code to to insert data to sql database
         // insert query
+        System.out.println("Enter number of nap hours daily : ");
+        int nap_hours_daily = scanner.nextInt();
+        System.out.println("Enter number of activity hours weekly : ");
+        int activity_hours_weekly = scanner.nextInt();
+
+        DBConnection.executeQuery("INSERT INTO schedule(nap_hrs_daily, activity_hrs_weekly)\n" +
+                "                  VALUES (" + nap_hours_daily + ", \" " + activity_hours_weekly + ";");
     }
-    public void deleteSchedule(){
+    public void deleteSchedule(){ //check if works
         //code to to delete data from sql database
-        //  delete group + entries in schedule_has_activity
+        // entries in schedule_has_activity
+        System.out.println("Enter schedule ID : ");
+        System.out.println("Press 0 to go back : ");
+        int schedule_id = scanner.nextInt();
+
+        DBConnection.executeQuery("DELETE FROM schedule_has_activity WHERE schedule_has_activity.schedule_id = " + schedule_id + ";");
+        DBConnection.executeQuery("DELETE FROM schedule WHERE schedule.schedule_id = " + schedule_id + ";");
+
     }
     public void displaySchedule(){ //works
         //code to to select data from sql database
@@ -283,11 +329,28 @@ public class Service {
     public void createActivity(){
         //code to to insert data to sql database
         // insert query
+        System.out.println("Enter name of activity:");
+        String name = scanner.next();
+        System.out.println("Enter short description of activity:");
+        String desc = scanner.next() + scanner.nextLine();
+        DBConnection.executeQuery("INSERT INTO activity (name, desc) VALUES (\"" + name + "\", \"" + desc + "\");");
     }
-
     public void displayAcitivties(){
         //code to to select data from sql database
         // select all
+        ResultSet rs = DBConnection.sendQuery("SELECT * FROM activity;");
+
+        try {
+
+            while(rs.next()) {
+                System.out.println("ID:" + rs.getString("activity.activiy_id") + " | " + "Name:" + rs.getString("activity.name"));
+                System.out.println("Description:" + rs.getString("activiy.desc"));
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
     }
     public void createInvoice(){
         //code to to insert data to sql database
@@ -343,16 +406,40 @@ public class Service {
     public void createGroup(){
         //code to to insert data to sql database
         // insert
+        System.out.println("Enter group name:");
+        String name = scanner.next();
+        System.out.println("Enter schedule id:");
+        int id = scanner.nextInt();
+        DBConnection.executeQuery("INSERT INTO group (name, schedule_id) VALUES (\"" + name + "\", \"" + id + "\");");
     }
     public void deleteGroup(){
         //code to to delete data from sql database
         // delete group
+        System.out.println("Select group ID to delete group:");
+        int id = scanner.nextInt();
+        DBConnection.executeQuery("DELETE FROM group WHERE group_id = " + id + ";\n");
     }
     public void displayGroups(){
         //code to to select data from sql database
         // select all from group + join on teacher name
+
+        ResultSet rs = DBConnection.sendQuery("SELECT group.group_id, group.name, group.avg_age, group.schedule_id, teacher.first_name, teacher.last_name\n" +
+                "FROM group\n" +
+                "JOIN teacher\n" +
+                "ON group.group_id = teacher.group_id;");
+
+        try {
+            while(rs.next()) {
+                System.out.println("ID: " + rs.getString("group.group_id") + " | " + "Name: " + rs.getString("group.group.name") +
+                " | " + "Average age:" + rs.getString("group.avg_age") + " | " + "Schedule ID: " + rs.getString("group.schedule_id") +
+                " | " + "Teacher name: " + rs.getString("teacher.first_name") + rs.getString("teacher.last_name"));
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
-    public void addChildrenToGroup () {
+    public void addChildrenToGroup () { // NEEDS TO BE INCLUDED IN MENUS
         //code to select a group and then add a few children
         System.out.println("Select group : ");
         int groupID = scanner.nextInt();
@@ -364,6 +451,19 @@ public class Service {
             DBConnection.executeQuery("UPDATE child\n" +
                     "SET group_id = " + groupID + "\n" +
                     "WHERE child_id = " + childID + ";");
+        }
+    }
+    public void addActivitiesToSchedule () { // NEEDS TO BE INCLUDED IN MENUS
+        System.out.println("Select Schedule : ");
+        int scheduleID = scanner.nextInt();
+        System.out.println("How many activities do you want to add : ");
+        int nr = scanner.nextInt();
+        for (int i = 1; i <= nr; i ++){
+            System.out.println("Select activity : ");
+            int activityID = scanner.nextInt();
+            System.out.println("How many times would you like to have the activity during the month :");
+            int instances = scanner.nextInt();
+            DBConnection.executeQuery("INSERT INTO schedule_has_activity  VALUES (" + scheduleID + ", " + activityID +", " + instances + ");");
         }
     }
 }
