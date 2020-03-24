@@ -138,10 +138,33 @@ public class Service {
     public void createTeacher(){
         //code to to insert data to sql database
         // insert query - WIP
+        System.out.println("Enter first name : ");
+        String firstName = scanner.next();
+        System.out.println("Enter last name : ");
+        String lastName = scanner.next();
+        System.out.println("Enter birth day : ");
+        String birth_date = scanner.next();
+        System.out.println("Enter sex : ");
+        String sex = scanner.next();
+        System.out.println("Enter salary : ");
+        double salary = scanner.nextDouble();
+        System.out.println("Enter group ID : ");
+        int group_id = scanner.nextInt();
+
+        DBConnection.executeQuery("INSERT INTO teacher(first_name, last_name, birth_date, sex, salary, group_id, super_id) VALUES\n" +
+                "(" + firstName + "\", \"" + lastName + "\", \"" + birth_date + "\", \"" + sex + "\", " + salary + ", \"" + group_id + "\", " + 101 +");");
+
+        new AdminMenu();
     }
-    public void deleteTeacher(){
+    public void deleteTeacher(){ // didn't test it
         //code to to delete data from sql database
         // delete teacher and associated appointments
+        System.out.println("Enter teacher ID : ");
+        int teacher_id = scanner.nextInt();
+        DBConnection.executeQuery("DELETE FROM appointment WHERE teacher_id = " + teacher_id + ";");
+        DBConnection.executeQuery("DELETE FROM teacher WHERE teacher_id = " + teacher_id + ";");
+
+        new AdminMenu();
     }
     public void displayTeacherList(){
         //code to to select data from sql database
@@ -159,8 +182,26 @@ public class Service {
         //code to to select data from sql database
         // select all from appointment + join with teacher name + child name + parent name
     }
-    public static void displayRowFromAppointmentList(){
+    public static void displayRowFromAppointmentList(){ // works
         // select all from appointment for a given teacher id
+        int teacher_id = scanner.nextInt();
+
+        ResultSet rs = DBConnection.sendQuery("SELECT * FROM  appointment WHERE teacher_id =" + teacher_id + ";");
+        try
+        {
+            while (rs.next())
+            {
+                // ResultSet has rows with columns accessible by using the column name
+                System.out.println("ID: " + rs.getString("appointment_id") + " | " +
+                        "Date: " + rs.getString("date") + " | "+ "Time: " + rs.getString("time") + " | " +
+                        "Child ID: " + rs.getString("child_id") + " | " +
+                        "Teacher ID: " + rs.getString("teacher_id") );
+            }
+        } catch (SQLException e)
+        {
+            e.printStackTrace();
+        }
+
     }
     public void createRecordInWaitingList(){
         //code to to insert data to sql database
@@ -186,9 +227,28 @@ public class Service {
         //code to to delete data from sql database
         //  delete group + entries in schedule_has_activity
     }
-    public void displaySchedule(){
+    public void displaySchedule(){ //doesn't work ////
         //code to to select data from sql database
         // select all from schedule + activities that it has
+        ResultSet rs = DBConnection.sendQuery("SELECT schedule.schedule_id, schedule.nap_hrs_daily, schedule.activity_hrs_weekly, activity.name\n"+
+                "FROM  schedule\n" +
+                "JOIN schedule_has_activity \n" +
+                "ON schedule.schedule_id = schedule_has_activity.schedule_id\n"+
+                "JOIN activity\n" +
+                "ON schedule_has_activity.activity_id = activity.activity_id;");
+        try
+        {
+            while (rs.next())
+            {
+                // ResultSet has rows with columns accessible by using the column name
+                System.out.println("ID: " + rs.getString("schedule.schedule_id") + " | "+ "Nap hours daily: " + rs.getString("schedule.nap_hrs_daily") + " | " +
+                        "Activity hours weekly: " + rs.getString("schedule.activity_hrs_weekly") + " | " +
+                        "Activity: " + rs.getString("activity.name") );
+            }
+        } catch (SQLException e)
+        {
+            e.printStackTrace();
+        }
     }
     public void createActivity(){
         //code to to insert data to sql database
