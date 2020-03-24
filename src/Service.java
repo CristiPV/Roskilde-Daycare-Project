@@ -8,19 +8,35 @@ public class Service {
     public Service() {
     }
 
-    public void createChild( String firstName, String lastName, String birth_date, String sex, int age, String joinedDate, int parentID ){
+    public void createChild(  ){
         //code to to insert data to sql database
         // Insert Query
+        System.out.println("Enter first name : ");
+        String firstName = scanner.next();
+        System.out.println("Enter last name : ");
+        String lastName = scanner.next();
+        System.out.println("Enter birth day : ");
+        String birth_date = scanner.next();
+        System.out.println("Enter sex : ");
+        String sex = scanner.next();
+        System.out.println("Enter age : ");
+        String age = scanner.next();
+        System.out.println("Enter joining date (YYYY-MM-DD) : ");
+        String joinedDate = scanner.next();
+        System.out.println("Enter parent ID : ");
+        int parentID = scanner.nextInt();
         DBConnection.executeQuery("INSERT INTO child(first_name, last_name, birth_date, sex, age, joined_date, parent_id) VALUES\n" +
                 "(\"" + firstName + "\", \"" + lastName + "\", \"" + birth_date + "\", \"" + sex + "\", " +
                 age + ", \"" + joinedDate + "\", " + parentID + ");");
     }
-    public void deleteChild(int id){
+    public void deleteChild(){
         //code to to delete data from sql database
         // if parent has no more children in the DB, then delete the parent associated with the child.
         // delete telephone_list entries related to the parent
         // Delete the waiting_list entries tied to the child
         // Delete specific row ( id )
+        System.out.println("Select child : ");
+        int id = scanner.nextInt();
         ResultSet pid = DBConnection.sendQuery("SELECT parent_id FROM child\n" +
                 "WHERE child_id = " + id + ";");
 
@@ -63,12 +79,24 @@ public class Service {
             e.printStackTrace();
         }
     }
-    public void createParent( String firstName, String lastName, String birthDate, String sex, String phoneNo, String phoneNoAlt ){
+    public void createParent(){
         //code to to insert data to sql database
         // Insert Query
         // Adds the parent into the DB
+        System.out.println("Enter first name : ");
+        String firstName = scanner.next();
+        System.out.println("Enter last name : ");
+        String lastName = scanner.next();
+        System.out.println("Enter birth day : ");
+        String birth_date = scanner.next();
+        System.out.println("Enter sex : ");
+        String sex = scanner.next();
+        System.out.println("Enter phone number : ");
+        String phoneNo = scanner.next();
+        System.out.println("Enter alternate phone number (If none, press enter) : ");
+        String phoneNoAlt = scanner.next();
         DBConnection.executeQuery("INSERT INTO parent(first_name, last_name, birth_date, sex) VALUES (\"" + firstName + "\", \"" + lastName +
-                "\", \"" + birthDate + "\", \"" + sex + "\");");
+                "\", \"" + birth_date + "\", \"" + sex + "\");");
 
         // Finds the parent and retrieves the ID
         ResultSet rs = DBConnection.sendQuery("SELECT parent_id FROM parent\n" +
@@ -117,7 +145,9 @@ public class Service {
         }
 
     }
-    public void displayOneParent( int id ){ //added no sql comment
+    public void displayOneParent( ){ //added no sql comment
+        System.out.println("Select parent : ");
+        int id = scanner.nextInt();
         ResultSet rs = DBConnection.sendQuery("SELECT *, telephone_list.phone_number\n" +
                 "FROM parent\n" +
                 "JOIN telephone_list\n" +
@@ -259,9 +289,23 @@ public class Service {
         //code to to select data from sql database
         // select all
     }
-    public void createInvoice(int amount, String dateReceived, String dateSent, String from, String to, int parentID, int teacherID){
+    public void createInvoice(){
         //code to to insert data to sql database
         // insert
+        System.out.println("Enter amount : ");
+        String amount = scanner.next();
+        System.out.println("Enter date received : ");
+        String dateReceived = scanner.next();
+        System.out.println("Enter date sent : ");
+        String dateSent = scanner.next();
+        System.out.println("Enter from : ");
+        String from = scanner.next();
+        System.out.println("Enter to : ");
+        String to = scanner.next();
+        System.out.println("Enter parent ID (if none, enter -1) : ");
+        int parentID = scanner.nextInt();
+        System.out.println("Enter teacher ID (if none, enter -1) : ");
+        int teacherID = scanner.nextInt();
         if (parentID == -1) {
             DBConnection.executeQuery("INSERT INTO invoice(amount, date_received, date_sent, from, to, parent_id, teacher_id)\n" +
                     "                  VALUES (" + amount + ", \" " + dateReceived + "\", \"" +
@@ -273,9 +317,11 @@ public class Service {
                     dateSent + "\", \"" + from + "\", \"" + to + "\"," + parentID + ", NULL);");
         }
     }
-    public void deleteInvoice(int id){
+    public void deleteInvoice(){
         //code to to delete data from sql database
         // delete
+        System.out.println("Select invoice : ");
+        int id = scanner.nextInt();
         DBConnection.executeQuery("DELETE FROM invoice\n" +
                 "WHERE invoice_id = " + id + ";\n");
     }
