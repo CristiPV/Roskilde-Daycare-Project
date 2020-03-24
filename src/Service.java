@@ -8,16 +8,43 @@ public class Service {
     public Service() {
     }
 
-    public void createChild(){
+    public void createChild( String firstName, String lastName, String birth_date, String sex, int age, String joinedDate, int parentID ){
         //code to to insert data to sql database
         // Insert Query
+        DBConnection.executeQuery("INSERT INTO child(first_name, last_name, birth_date, sex, age, joined_date, parent_id) VALUES\n" +
+                "(\"" + firstName + "\", \"" + lastName + "\", \"" + birth_date + "\", \"" + sex + "\", " +
+                age + ", \"" + joinedDate + "\", " + parentID + ");");
     }
-    public void deleteChild(){
+    public void deleteChild(int id){
         //code to to delete data from sql database
         // if parent has no more children in the DB, then delete the parent associated with the child.
         // delete telephone_list entries related to the parent
         // Delete the waiting_list entries tied to the child
         // Delete specific row ( id )
+        ResultSet pid = DBConnection.sendQuery("SELECT parent_id FROM child\n" +
+                "WHERE child_id = " + id + ";");
+
+        try {
+            pid.next();
+            String parentID = pid.getString("parent_id");
+            ResultSet rs = DBConnection.sendQuery("SELECT COUNT(child_id) AS count FROM child\n" +
+                    "WHERE parent_id = " + parentID + ";");
+            rs.next();
+            // checks if the parent has any more children than the one we are about to delete
+            if (rs.getInt("count") == 1) {
+                // deletes the telephone list entries related to the parent
+                DBConnection.executeQuery("DELETE FROM telephone_list\n" +
+                        "WHERE parent_id = " + parentID + ";");
+                // deletes the parent
+                DBConnection.executeQuery("DELETE FROM parent\n" +
+                        "WHERE parent_id = " + parentID + ";");
+            }
+            DBConnection.executeQuery("DELETE FROM child\n" +
+                    "WHERE child_id = " + id + ";");
+
+        }catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
     public void displayChildList(){
         //code to to select data from sql database
@@ -36,16 +63,77 @@ public class Service {
             e.printStackTrace();
         }
     }
-    public void createParent(){
+    public void createParent( String firstName, String lastName, String birthDate, String sex, String phoneNo, String phoneNoAlt ){
         //code to to insert data to sql database
         // Insert Query
+        // Adds the parent into the DB
+        DBConnection.executeQuery("INSERT INTO parent(first_name, last_name, birth_date, sex) VALUES (\"" + firstName + "\", \"" + lastName +
+                "\", \"" + birthDate + "\", \"" + sex + "\");");
+
+        // Finds the parent and retrieves the ID
+        ResultSet rs = DBConnection.sendQuery("SELECT parent_id FROM parent\n" +
+                "WHERE first_name = \"" + firstName + "\" AND last_name = \"" + lastName + "\";");
+        String parentID = "";
+        try {
+            rs.next();
+            parentID = rs.getString("parent_id");
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        // Adds the main phone no in the DB
+        DBConnection.executeQuery("INSERT INTO telephone_list VALUES (\"" + phoneNo + "\", " + parentID + ");");
+
+        // Adds the alternate phone no ( if exsists ) in the DB
+        if (phoneNoAlt.length() == 8) {
+            DBConnection.executeQuery("INSERT INTO telephone_list VALUES (\"" + phoneNoAlt + "\", " + parentID + ");");
+        }
     }
     public void displayParentList(){
         //code to to select data from sql database
         // select all from parent + join with telephone_list
+        ResultSet rs = DBConnection.sendQuery("SELECT *, telephone_list.phone_number\n" +
+                "FROM parent\n" +
+                "JOIN telephone_list\n" +
+                "ON parent.parent_id = telephone_list.parent_id\n" +
+                "ORDER BY parent.parent_id;");
+        try {
+            String lastID = "";
+            while (rs.next()){
+                if (rs.getString("parent_id").equals(lastID)) {
+                    System.out.print(", " + rs.getString("telephone_list.phone_number"));
+                }
+                else {
+                    System.out.println();
+                    System.out.println("ID : " + rs.getString("parent_id") + " | Name : " + rs.getString("first_name") + rs.getString("last_name") +
+                            " | Birth Date : " + rs.getString("birth_date") + " | Sex : " + rs.getString("sex"));
+                    System.out.print("Phone Number : " + rs.getString("telephone_list.phone_number"));
+                }
+                lastID = rs.getString("parent_id");
+            }
+        } catch (SQLException e){
+            e.printStackTrace();
+        }
+
     }
-    public void displayOneParent(){ //added no sql comment
-        //code
+    public void displayOneParent( int id ){ //added no sql comment
+        ResultSet rs = DBConnection.sendQuery("SELECT *, telephone_list.phone_number\n" +
+                "FROM parent\n" +
+                "JOIN telephone_list\n" +
+                "ON parent.parent_id = telephone_list.parent_id\n" +
+                "WHERE parent.parent_id =  " + id + ";");
+        try {
+            rs.next();
+            System.out.println("ID : " + rs.getString("parent_id") + " | Name : " + rs.getString("first_name") + rs.getString("last_name") +
+                    " | Birth Date : " + rs.getString("birth_date") + " | Sex : " + rs.getString("sex"));
+            System.out.print("Phone Number : " + rs.getString("telephone_list.phone_number"));
+            while (rs.next()) {
+                System.out.print(", " + rs.getString("telephone_list.phone_number"));
+            }
+        } catch (SQLException e){
+            e.printStackTrace();
+        }
     }
     public void createTeacher(){
         //code to to insert data to sql database
@@ -111,18 +199,40 @@ public class Service {
         //code to to select data from sql database
         // select all
     }
-    public void createInvoice(){
+    public void createInvoice(int amount, String dateReceived, String dateSent, String from, String to, int parentID, int teacherID){
         //code to to insert data to sql database
         // insert
+        if (parentID == -1) {
+            DBConnection.executeQuery("INSERT INTO invoice(amount, date_received, date_sent, from, to, parent_id, teacher_id)\n" +
+                    "                  VALUES (" + amount + ", \" " + dateReceived + "\", \"" +
+                    dateSent + "\", \"" + from + "\", \"" + to + "\", NULL, " + teacherID + ");");
+        }
+        else {
+            DBConnection.executeQuery("INSERT INTO invoice(amount, date_received, date_sent, from, to, parent_id, teacher_id)\n" +
+                    "                  VALUES (" + amount + ", \" " + dateReceived + "\", \"" +
+                    dateSent + "\", \"" + from + "\", \"" + to + "\"," + parentID + ", NULL);");
+        }
     }
-    public void deleteInvoice(){
+    public void deleteInvoice(int id){
         //code to to delete data from sql database
         // delete
+        DBConnection.executeQuery("DELETE FROM invoice\n" +
+                "WHERE invoice_id = " + id + ";\n");
     }
     public void displayInvoicesList(){
         //code to to select data from sql database - WIP
         // select all
-        // if possible, add join for teacher name &  parent name
+        ResultSet rs = DBConnection.sendQuery("SELECT * FROM invoice;");
+        try {
+            while (rs.next()) {
+                System.out.println("ID : " + rs.getString("invoice.invoice_id") + " | Amount : " + rs.getString("invoice.amount") +
+                        " | Date Received : " + rs.getString("invoice.date_received") + " | Date Sent : " + rs.getString("invoice.date_sent") +
+                        " | From : " + rs.getString("invoice.from") + " | To : " + rs.getString("invoice.to") + " | Parent ID : " +
+                        rs.getString("parent_id") + " | Teacher ID : " + rs.getString("teacher_id"));
+            }
+        } catch (SQLException e){
+            e.printStackTrace();
+        }
     }
     public void createGroup(){
         //code to to insert data to sql database

@@ -8,12 +8,13 @@ public class RoskildeMain {
     public static void main(String[] args)
     {
         // Login Credentials
-        String username = "";
-        String password = "";
+        String username = "administrator";
+        String password = "m8qhhxm0qwu";
 
         selectDB(URLDB);
         selectSchema(SCHEMA);
         loginDB(username, password);
+        Menu.displayparentlist();
         /*Menu.selectAll( "child" );*/
        /* Menu.insertRow(213, "David", "Spencer", "2014-01-02", "M", 6, "2020-03-23", 501 , 301);
         Menu.selectAll( "child" );*/
