@@ -200,13 +200,31 @@ public class Service {
         //code to to select data from sql database
         // select all from teacher
     }
-    public void createAppointment(){
+    public void createAppointment(){ //check if works
         //code to to insert data to sql database
         // create an appointment and delete the waiting_list entry for the corresponding child
+        System.out.println("Enter appointment date (YYYY-MM-DD) : ");
+        String date = scanner.next();
+        System.out.println("Enter appointment time (HH:MM:SS) : ");
+        String time = scanner.next();
+        System.out.println("Enter child ID : ");
+        int child_id = scanner.nextInt();
+        System.out.println("Enter teacher ID : ");
+        String teacher_id = scanner.next();
+
+        DBConnection.executeQuery("INSERT INTO teacher (date, time, child_id, teacher_id) VALUES\n" +
+                "(\"" + date + "\", \"" + time + "\", \"" + child_id + "\", \"" + teacher_id + ");");
+
+        System.out.println("You created an appointment.");
+
+        DBConnection.executeQuery("DELETE FROM waiting_list WHERE child_id = " + child_id + ";");
     }
-    public void deleteAppointment(){
+    public void deleteAppointment(){ //check if works
         //code to to delete data from sql database
         // delete appointment
+        System.out.println("Enter an appointmnt ID : ");
+        int appointment_id = scanner.nextInt();
+        DBConnection.executeQuery("DELETE FROM appointment WHERE appointment_id = " + appointment_id + ";");
     }
     public void displayAppointmentList(){
         //code to to select data from sql database
@@ -241,9 +259,22 @@ public class Service {
         //code to to delete data from sql database
         // delete query
     }
-    public void displayWaitingList(){
+    public void displayWaitingList(){ //chech if works
         //code to to select data from sql database
         // select all + join with child name + parent name
+        ResultSet rs = DBConnection.sendQuery("SELECT *, parent.firstName AS \"Parent name\", parent.lastName AS \"Parent surname\" \n" +
+                "FROM waiting_list\n" +
+                "JOIN parent\n" +
+                "ON parent.child_id = waiting_list.child_id;");
+        try {
+            rs.next();
+            System.out.println("ID : " + rs.getString("waiting_list_id") + " | Date : " + rs.getString("date") +
+                    " | Reason : " + rs.getString("reason") + " | Child ID : " + rs.getString("child_id")+ " | Parent name : " + rs.getString("Parent name")
+                    + " | Parent last name : " + rs.getString("Parent surname"));
+
+        } catch (SQLException e){
+            e.printStackTrace();
+        }
     }
     public void displayRowFromWaitingList(){
         // select all from waiting_list for a given child id
