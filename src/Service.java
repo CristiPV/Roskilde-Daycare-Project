@@ -1,6 +1,7 @@
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Scanner;
+import java.util.SplittableRandom;
 
 public class Service {
     static Scanner scanner = new Scanner(System.in);
@@ -328,10 +329,28 @@ public class Service {
     public void createActivity(){
         //code to to insert data to sql database
         // insert query
+        System.out.println("Enter name of activity:");
+        String name = scanner.next();
+        System.out.println("Enter short description of activity:");
+        String desc = scanner.next() + scanner.nextLine();
+        DBConnection.executeQuery("INSERT INTO activity (name, desc) VALUES (\"" + name + "\", \"" + desc + "\");");
     }
     public void displayAcitivties(){
         //code to to select data from sql database
         // select all
+        ResultSet rs = DBConnection.sendQuery("SELECT * FROM activity;");
+
+        try {
+
+            while(rs.next()) {
+                System.out.println("ID:" + rs.getString("activity.activiy_id") + " | " + "Name:" + rs.getString("activity.name"));
+                System.out.println("Description:" + rs.getString("activiy.desc"));
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
     }
     public void createInvoice(){
         //code to to insert data to sql database
@@ -387,14 +406,38 @@ public class Service {
     public void createGroup(){
         //code to to insert data to sql database
         // insert
+        System.out.println("Enter group name:");
+        String name = scanner.next();
+        System.out.println("Enter schedule id:");
+        int id = scanner.nextInt();
+        DBConnection.executeQuery("INSERT INTO group (name, schedule_id) VALUES (\"" + name + "\", \"" + id + "\");");
     }
     public void deleteGroup(){
         //code to to delete data from sql database
         // delete group
+        System.out.println("Select group ID to delete group:");
+        int id = scanner.nextInt();
+        DBConnection.executeQuery("DELETE FROM group WHERE group_id = " + id + ";\n");
     }
     public void displayGroups(){
         //code to to select data from sql database
         // select all from group + join on teacher name
+
+        ResultSet rs = DBConnection.sendQuery("SELECT group.group_id, group.name, group.avg_age, group.schedule_id, teacher.first_name, teacher.last_name\n" +
+                "FROM group\n" +
+                "JOIN teacher\n" +
+                "ON group.group_id = teacher.group_id;");
+
+        try {
+            while(rs.next()) {
+                System.out.println("ID: " + rs.getString("group.group_id") + " | " + "Name: " + rs.getString("group.group.name") +
+                " | " + "Average age:" + rs.getString("group.avg_age") + " | " + "Schedule ID: " + rs.getString("group.schedule_id") +
+                " | " + "Teacher name: " + rs.getString("teacher.first_name") + rs.getString("teacher.last_name"));
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
     public void addChildrenToGroup () { // NEEDS TO BE INCLUDED IN MENUS
         //code to select a group and then add a few children
