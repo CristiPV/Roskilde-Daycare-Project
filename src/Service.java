@@ -490,15 +490,14 @@ public class Service {
     public void displayGroups(){
         //code to to select data from sql database
         // select all from group + join on teacher name
-
-        ResultSet rs = DBConnection.sendQuery("SELECT group.group_id, group.name, group.avg_age, group.schedule_id, teacher.first_name, teacher.last_name\n" +
-                "FROM group\n" +
+        ResultSet rs = DBConnection.sendQuery("SELECT roskilde_daycare.group.*, teacher.first_name, teacher.last_name\n" +
+                "FROM roskilde_daycare.group\n" +
                 "JOIN teacher\n" +
-                "ON group.group_id = teacher.group_id;");
+                "ON roskilde_daycare.group.group_id = teacher.group_id;");
 
         try {
             while(rs.next()) {
-                System.out.println("ID: " + rs.getString("group.group_id") + " | " + "Name: " + rs.getString("group.group.name") +
+                System.out.println("ID: " + rs.getString("group.group_id") + " | " + "Name: " + rs.getString("group.name") +
                 " | " + "Average age:" + rs.getString("group.avg_age") + " | " + "Schedule ID: " + rs.getString("group.schedule_id") +
                 " | " + "Teacher name: " + rs.getString("teacher.first_name") + rs.getString("teacher.last_name"));
             }
