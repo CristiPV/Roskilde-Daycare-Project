@@ -1,5 +1,6 @@
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Random;
 import java.util.Scanner;
 import java.util.SplittableRandom;
 
@@ -641,5 +642,58 @@ public class Service {
             DBConnection.executeQuery("INSERT INTO schedule_has_activity  VALUES (" + scheduleID + ", " + activityID +", " + instances + ");");
             nr =-1;
         }
+    }
+
+    public void createUser (String firstName, String lastName) {
+
+        ResultSet rs = DBConnection.sendQuery("SELECT teacher_id\n" +
+                "FROM teacher\n" +
+                "WHERE last_name = \"" + lastName + "\" AND first_name = \"" + firstName + "\";");
+        try {
+            rs.next();
+
+            String id = rs.getString("teacher_id");
+
+            String username = firstName.substring(0, 4) + id;
+            username = username.toLowerCase();
+            String password = createPassword();
+
+            DBConnection.executeQuery("CREATE USER IF NOT EXISTS " + username + "@'%' IDENTIFIED BY '" + password + "';");
+            DBConnection.executeQuery("GRANT ALL PRIVILEGES ON roskilde_daycare.* TO " + username + "@'%';");
+            /*DBConnection.executeQuery("GRANT ALL PRIVILEGES ON roskilde_daycare.activity TO " + username + "@'%';");
+            DBConnection.executeQuery("GRANT ALL PRIVILEGES ON roskilde_daycare.schedule_has_activity TO " + username + "@'%';");
+            DBConnection.executeQuery("GRANT ALL PRIVILEGES ON roskilde_daycare.schedule TO " + username + "@'%';");
+            DBConnection.executeQuery("GRANT ALL PRIVILEGES ON roskilde_daycare.group TO " + username + "@'%';");
+            DBConnection.executeQuery("GRANT ALL PRIVILEGES ON roskilde_daycare.appointment TO " + username + "@'%';");
+            DBConnection.executeQuery("GRANT ALL PRIVILEGES ON roskilde_daycare.child TO " + username + "@'%';");
+            DBConnection.executeQuery("GRANT ALL PRIVILEGES ON roskilde_daycare.waiting_list TO " + username + "@'%';");
+            DBConnection.executeQuery("GRANT ALL PRIVILEGES ON roskilde_daycare.parent TO " + username + "@'%';");
+            DBConnection.executeQuery("GRANT ALL PRIVILEGES ON roskilde_daycare.telephone_list TO " + username + "@'%';");
+            DBConnection.executeQuery("GRANT ALL PRIVILEGES ON roskilde_daycare.user TO " + username + "@'%';");
+            DBConnection.executeQuery("GRANT ALL PRIVILEGES ON roskilde_daycare.teacher TO " + username + "@'%';");*/
+            DBConnection.executeQuery("INSERT INTO user(username, password, teacher_id) VALUES(\"" + username + "\", \"" + password + "\", " + id + ")");
+        } catch (SQLException e ) {
+            e.printStackTrace();
+        }
+    }
+
+    public String createPassword() {
+
+        Random rand = new Random();
+        String password = "";
+        for (int i = 0; i < 10; i++){
+            if(rand.nextBoolean()){
+                int nextChar = 97 + rand.nextInt(25);
+                char Char = (char) nextChar;
+                if ( rand.nextBoolean() ) {
+                    password += Character.toUpperCase(Char);
+                } else {
+                    password += Char;
+                }
+            } else {
+                password += rand.nextInt(9);
+            }
+        }
+        return password;
     }
 }

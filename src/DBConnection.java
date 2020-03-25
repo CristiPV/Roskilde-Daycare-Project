@@ -71,6 +71,7 @@ public class DBConnection {
                 connectedUser = "Teacher : " + rs.getString("first_name") + " " + rs.getString("last_name");
             }
         }  catch (SQLException | ClassNotFoundException e) {
+            e.printStackTrace();
             System.out.println("Wrong Credentials. Please try again !");
         }
         return connectedUser;
