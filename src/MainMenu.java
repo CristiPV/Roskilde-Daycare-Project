@@ -28,7 +28,13 @@ public class MainMenu {
             System.out.println("|          Sign in             |  ");
             System.out.println("|______________________________|  ");
             System.out.println("|       Enter Username :       | ");
+            System.out.println("|______________________________| ");
+            System.out.println("|      To Exit, Insert 0 :     | ");
+            System.out.println("|______________________________| ");
             username = console.next();
+            if (username.equals("0")) {
+                System.exit(0);
+            }
             System.out.println("|______________________________|\n|       Enter password:        |");
             password = console.next();
             System.out.println("|______________________________|  ");
