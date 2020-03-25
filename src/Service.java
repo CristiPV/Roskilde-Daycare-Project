@@ -325,22 +325,48 @@ public class Service {
         int child_id = scanner.nextInt();
         System.out.println("Enter teacher ID : ");
         int teacher_id = scanner.nextInt();
+        System.out.println("Do you want to confirmation this addition to the database?\n"+
+                "Date: "+date+"|Time: "+time+"|Child ID: "+child_id+"Teacher ID: "+teacher_id+
+                "\n (1).Yes/(2).No   ");
+        int confirmation=scanner.nextInt();
+        if(confirmation==1) {
+            DBConnection.executeQuery("INSERT INTO appointment (date, time, child_id, teacher_id) VALUES\n" +
+                    "(\"" + date + "\"," + time + "," + child_id + "," + teacher_id + ");");
 
-        DBConnection.executeQuery("INSERT INTO appointment (date, time, child_id, teacher_id) VALUES\n" +
-                "(\"" + date + "\"," + time + "," + child_id + "," + teacher_id + ");");
+            System.out.println("You created an appointment in the system.");
 
-        System.out.println("You added an appointment to the system.");
-
-        DBConnection.executeQuery("DELETE FROM waiting_list WHERE child_id = " + child_id + ";");
+            DBConnection.executeQuery("DELETE FROM waiting_list WHERE child_id = " + child_id + ";");
+        }
+        else if(confirmation==2)
+        {
+            System.out.println("Canceling creation...");
+        }
+        else
+        {
+            System.out.println("Wrong input...**CANCELING CREATION**");
+        }
     }
-    public void deleteAppointment(){ //check if works
+    public void deleteAppointment() { //check if works
         //code to to delete data from sql database
         // delete appointment
         System.out.println("Enter an appointmnt ID : ");
         int appointment_id = scanner.nextInt();
-        DBConnection.executeQuery("DELETE FROM appointment WHERE appointment_id = " + appointment_id + ";");
+        ResultSet rs = DBConnection.sendQuery("SELECT * FROM appointment WHERE appointment_id=" + appointment_id);
+        try {
+            rs.next();
+            System.out.println("Do you want to confirmation this deletion from the database?\n" +
+                    "ID: " + rs.getString("appointment_id") + "|Date: " + rs.getString("date") +
+                    "|Time: " + rs.getString("time") + "|Child ID: " + rs.getString("child_id") +
+                    "|Teacher ID: " + rs.getString("teacher_id") +
+                    "\n (1).Yes/(2).No");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        int confirmation = scanner.nextInt();
+        if (confirmation == 1) {
+            DBConnection.executeQuery("DELETE FROM appointment WHERE appointment_id = " + appointment_id + ";");
 
-        System.out.println("You deleted an appointment from the system.");
+        System.out.println("You deleted an appointment in the system.");
     }
     public void displayAppointmentList(){ //works
         //code to to select data from sql database
@@ -387,18 +413,17 @@ public class Service {
         }
 
     }
-    public void createRecordInWaitingList(){
+    public void createRecordInWaitingList() {
         //code to to insert data to sql database
         // insert query
         System.out.println("Enter today's date: ");
-        String dateAdded=scanner.next();
+        String dateAdded = scanner.next();
         System.out.println("Enter reason for adding: ");
-        String reason=scanner.next();
+        String reason = scanner.next();
         System.out.println("Enter child ID: (if none: enter -1)");
         String child_id=scanner.next();
         DBConnection.executeQuery("INSERT INTO waiting_list(date_added,reason,child_id) \n" +
                 "VALUES(\""+ dateAdded + "\", \""+reason+"\","+child_id+");");
-        System.out.println("You added a record to the waiting list.");
     }
     public void deleteRecordInWaitingList(){
         //code to to delete data from sql database
