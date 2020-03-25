@@ -46,7 +46,7 @@ public class Service {
         {
             System.out.println("Wrong input....**CANCELING CREATION** ");
         }
-        }
+    }
     public void deleteChild(){ //works
         //code to to delete data from sql database
         // if parent has no more children in the DB, then delete the parent associated with the child.
@@ -173,6 +173,7 @@ public class Service {
         {
             System.out.println("Wrong input...**CANCELING CREATION**");
         }
+        System.out.println("You added a parent to the system.");
     }
     public void displayParentList(){ //works
         //code to to select data from sql database
@@ -328,7 +329,7 @@ public class Service {
         DBConnection.executeQuery("INSERT INTO appointment (date, time, child_id, teacher_id) VALUES\n" +
                 "(\"" + date + "\"," + time + "," + child_id + "," + teacher_id + ");");
 
-        System.out.println("You created an appointment in the system.");
+        System.out.println("You added an appointment to the system.");
 
         DBConnection.executeQuery("DELETE FROM waiting_list WHERE child_id = " + child_id + ";");
     }
@@ -339,7 +340,7 @@ public class Service {
         int appointment_id = scanner.nextInt();
         DBConnection.executeQuery("DELETE FROM appointment WHERE appointment_id = " + appointment_id + ";");
 
-        System.out.println("You deleted an appointment in the system.");
+        System.out.println("You deleted an appointment from the system.");
     }
     public void displayAppointmentList(){ //works
         //code to to select data from sql database
@@ -397,6 +398,7 @@ public class Service {
         String child_id=scanner.next();
         DBConnection.executeQuery("INSERT INTO waiting_list(date_added,reason,child_id) \n" +
                 "VALUES(\""+ dateAdded + "\", \""+reason+"\","+child_id+");");
+        System.out.println("You added a record to the waiting list.");
     }
     public void deleteRecordInWaitingList(){
         //code to to delete data from sql database
@@ -404,6 +406,7 @@ public class Service {
         System.out.println("Enter Child ID to Delete: ");
         int child_id=scanner.nextInt();
         DBConnection.executeQuery("DELETE FROM waiting_list WHERE child_id="+child_id);
+        System.out.println("You deleted a record from the waiting list.");
     }
     public void displayWaitingList(){ // works
         //code to to select data from sql database
@@ -457,7 +460,7 @@ public class Service {
         int activity_hours_weekly = scanner.nextInt();
         DBConnection.executeQuery("INSERT INTO schedule(nr_activities, nap_hrs_daily, activity_hrs_weekly)\n" +
                 "                  VALUES (" + 0 + "," + nap_hours_daily + ", " + activity_hours_weekly + ");");
-        System.out.println("You created a schedule in the system.");
+        System.out.println("You added a schedule to the system.");
     }
     public void deleteSchedule(){ //fix if in the group
         //code to to delete data from sql database
@@ -467,7 +470,7 @@ public class Service {
 
         DBConnection.executeQuery("DELETE FROM schedule_has_activity WHERE schedule_has_activity.schedule_id = " + schedule_id + ";");
         DBConnection.executeQuery("DELETE FROM schedule WHERE schedule.schedule_id = " + schedule_id + ";");
-        System.out.println("You deleted a schedule mfrom the system.");
+        System.out.println("You deleted a schedule from the system.");
     }
     public void displaySchedule(){ //works
         //code to to select data from sql database
@@ -500,6 +503,7 @@ public class Service {
         System.out.println("Enter short description of activity:");
         String desc = scanner.next() + scanner.nextLine();
         DBConnection.executeQuery("INSERT INTO activity(activity.name, activity.desc) VALUES (\"" + name + "\", \"" + desc + "\");");
+        System.out.println("You added an activity to the system.");
     }
     public void displayAcitivties(){
         //code to to select data from sql database
@@ -544,6 +548,7 @@ public class Service {
             DBConnection.executeQuery("INSERT INTO invoice(amount, date_received, date_sent, from, to, parent_id, teacher_id)\n" +
                     "VALUES (" + amount + ", \" " + dateReceived + "\", \"" + dateSent + "\", \"" + from + "\", \"" + to + "\"," + parentID + ", NULL);");
         }
+        System.out.println("You added an invoice to the system.");
     }
     public void deleteInvoice(){
         //code to to delete data from sql database
@@ -576,6 +581,7 @@ public class Service {
         System.out.println("Enter schedule id:");
         int id = scanner.nextInt();
         DBConnection.executeQuery("INSERT INTO roskilde_daycare.group (name, schedule_id, avg_age) VALUES (\"" + name + "\", " + id + ", " + 0 + ");");
+        System.out.println("You added a group to the system.");
     }
     public void deleteGroup(){
         //code to to delete data from sql database
@@ -616,6 +622,7 @@ public class Service {
                     "SET group_id = " + groupID + "\n" +
                     "WHERE child_id = " + childID + ";");
         }
+        System.out.println("You added child to the group.");
     }
     public void addActivityToSchedule()  {
         System.out.println("Select Schedule : ");
@@ -642,6 +649,7 @@ public class Service {
             DBConnection.executeQuery("INSERT INTO schedule_has_activity  VALUES (" + scheduleID + ", " + activityID +", " + instances + ");");
             nr =-1;
         }
+        System.out.println("You added activity to the schedule.");
     }
 
     public void createUser (String firstName, String lastName) {
