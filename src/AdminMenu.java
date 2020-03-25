@@ -464,7 +464,7 @@ public class AdminMenu {
                     waitingListMenu();
                     break;
                 case 4:
-                    new AdminMenu();
+                    adminMenu();
                     menuSwitcher = true;
                     break;
             }
@@ -593,7 +593,7 @@ public class AdminMenu {
                     appointmentsDatabaseMenu();
                     break;
                 case 4:
-                    new AdminMenu();
+                    adminMenu();
                     menuSwitcher = true;
                     break;
             }
