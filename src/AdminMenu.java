@@ -61,11 +61,11 @@ public class AdminMenu {
                     menuSwitcher=true;
                     break;
                 case 8:
+                    System.out.println("You are logged out.");
+                    new MainMenu();
                     menuSwitcher=true;
                     break;
             }
-
-
         }
     }
     //Children information menu and all the functions it provides

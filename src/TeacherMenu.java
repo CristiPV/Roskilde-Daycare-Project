@@ -60,6 +60,8 @@ public class TeacherMenu {
                     menuSwitcher = true;
                     break;
                 case 6:
+                    System.out.println("You are logged out.");
+                    new MainMenu();
                     menuSwitcher = true;
                     break;
             }
