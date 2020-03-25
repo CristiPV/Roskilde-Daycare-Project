@@ -75,7 +75,7 @@ public class AdminMenu {
         System.out.println(" ______________________________");
         System.out.println("|         Roskilde             |    ");
         System.out.println("|     _______________________  |   ");
-        System.out.println("|              Daycare         |  " );
+        System.out.println("|         Daycare              |  " );
         System.out.println("|______________________________|  \n" +
                            "|   Children Management Menu   |");
         System.out.println("|______________________________|   ");
@@ -127,7 +127,7 @@ public class AdminMenu {
         System.out.println(" ______________________________");
         System.out.println("|         Roskilde             |    ");
         System.out.println("|     _______________________  |   ");
-        System.out.println("|              Daycare         |  " );
+        System.out.println("|         Daycare              |  " );
         System.out.println("|______________________________|  \n" +
                            "|    Teacher Management Menu   |");
         System.out.println("|______________________________|   ");
@@ -179,7 +179,7 @@ public class AdminMenu {
        System.out.println(" ______________________________");
        System.out.println("|         Roskilde             |    ");
        System.out.println("|     _______________________  |   ");
-       System.out.println("|              Daycare         |  " );
+       System.out.println("|         Daycare              |  " );
        System.out.println("|______________________________|  \n" +
                           "|   Parents Management Menu    |");
        System.out.println("|______________________________|   ");
@@ -235,9 +235,9 @@ public class AdminMenu {
         System.out.println(" ______________________________");
         System.out.println("|         Roskilde             |    ");
         System.out.println("|     _______________________  |   ");
-        System.out.println("|              Daycare         |  ");
+        System.out.println("|         Daycare              |  ");
         System.out.println("|______________________________|  \n" +
-                           "|           Groups Menu        |");
+                           "|         Groups Menu          |");
         System.out.println("|______________________________|   ");
         System.out.println("|      1.Schedules             |  ");
         System.out.println("|      2.Add Group             |  ");
@@ -293,7 +293,7 @@ public class AdminMenu {
         System.out.println(" ______________________________");
         System.out.println("|         Roskilde             |    ");
         System.out.println("|     _______________________  |   ");
-        System.out.println("|              Daycare         |  " );
+        System.out.println("|         Daycare              |  " );
         System.out.println("|______________________________|  \n" +
                            "|   Schedule Management Menu   |");
         System.out.println("|______________________________|   ");
@@ -349,7 +349,7 @@ public class AdminMenu {
         System.out.println(" ______________________________");
         System.out.println("|         Roskilde             |    ");
         System.out.println("|     _______________________  |   ");
-        System.out.println("|              Daycare         |  ");
+        System.out.println("|         Daycare              |  ");
         System.out.println("|______________________________|  \n" +
                            "|        Activities Menu       |");
         System.out.println("|______________________________|   ");
@@ -392,7 +392,7 @@ public class AdminMenu {
         System.out.println(" ______________________________");
         System.out.println("|         Roskilde             |    ");
         System.out.println("|     _______________________  |   ");
-        System.out.println("|              Daycare         |  ");
+        System.out.println("|         Daycare              |  ");
         System.out.println("|______________________________|  \n" +
                            "|     Waiting List Menu        |");
         System.out.println("|______________________________|   ");
@@ -457,9 +457,9 @@ public class AdminMenu {
         System.out.println(" ______________________________");
         System.out.println("|         Roskilde             |    ");
         System.out.println("|     _______________________  |   ");
-        System.out.println("|              Daycare         |  ");
+        System.out.println("|         Daycare              |  ");
         System.out.println("|______________________________|  \n" +
-                           "|          Payment Menu        |");
+                           "|         Payment Menu         |");
         System.out.println("|______________________________|   ");
         System.out.println("|     1.Create Invoice         |  ");
         System.out.println("|     2.Delete Invoice         |  ");
@@ -511,7 +511,7 @@ public class AdminMenu {
         System.out.println(" ______________________________");
         System.out.println("|         Roskilde             |    ");
         System.out.println("|     _______________________  |   ");
-        System.out.println("|              Daycare         |  ");
+        System.out.println("|         Daycare              |  ");
         System.out.println("|______________________________|  \n" +
                            "| Appointments Management Menu |");
         System.out.println("|______________________________|   ");

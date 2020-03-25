@@ -14,7 +14,7 @@ public class TeacherMenu {
         System.out.println(" ______________________________");
         System.out.println("|          Roskilde            |    ");
         System.out.println("|     _____________________    |   ");
-        System.out.println("|              Daycare         |  ");
+        System.out.println("|          Daycare             |  ");
         System.out.println("|______________________________|  \n|         Teacher Menu         |");
         System.out.println("|______________________________|   ");
         System.out.println("|      1.Access Waiting List   |  ");
@@ -74,9 +74,9 @@ public class TeacherMenu {
         System.out.println(" ______________________________");
         System.out.println("|         Roskilde             |    ");
         System.out.println("|     _______________________  |   ");
-        System.out.println("|              Daycare         |  ");
+        System.out.println("|         Daycare              |  ");
         System.out.println("|______________________________|  \n" +
-                "| Appointments Management Menu |");
+                           "| Appointments Management Menu |");
         System.out.println("|______________________________|   ");
         System.out.println("|      1.Add Appointment       |  ");
         System.out.println("|      2.Delete Appointment    |  ");
@@ -145,9 +145,9 @@ public class TeacherMenu {
         System.out.println(" ______________________________");
         System.out.println("|         Roskilde             |    ");
         System.out.println("|     _______________________  |   ");
-        System.out.println("|              Daycare         |  ");
+        System.out.println("|         Daycare              |  ");
         System.out.println("|______________________________|  \n" +
-                "|     Waiting List Menu        |");
+                           "|      Waiting List Menu       |");
         System.out.println("|______________________________|   ");
         System.out.println("|     1.Create Waiting List    |  ");
         System.out.println("|     2.Delete Waiting List    |  ");
@@ -207,9 +207,9 @@ public class TeacherMenu {
         System.out.println(" ______________________________");
         System.out.println("|         Roskilde             |    ");
         System.out.println("|     _______________________  |   ");
-        System.out.println("|              Daycare         |  ");
+        System.out.println("|         Daycare              |  ");
         System.out.println("|______________________________|  \n" +
-                "|           Groups Menu        |");
+                           "|       Groups Menu            |");
         System.out.println("|______________________________|   ");
         System.out.println("|      1.Add Group             |  ");
         System.out.println("|      2.Delete Group          |  ");
