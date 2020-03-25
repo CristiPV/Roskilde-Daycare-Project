@@ -91,14 +91,10 @@ public class TeacherMenu {
                 case 1:
                     createAppointment();
                     menuSwitcher = true;
-                    System.out.println("");
-                    appointmentsDatabaseMenu();
                     break;
                 case 2:
                     deleteAppointment();
                     menuSwitcher = true;
-                    System.out.println("");
-                    appointmentsDatabaseMenu();
                     break;
                 case 3:
                     System.out.println("|______________________________|   ");
@@ -114,8 +110,6 @@ public class TeacherMenu {
                     } else {
                         System.out.println("You have entered an invalid choice try again!");
                     }
-                    System.out.println("");
-                    appointmentsDatabaseMenu();
                     menuSwitcher = true;
                     break;
                 case 4:
@@ -123,6 +117,8 @@ public class TeacherMenu {
                     menuSwitcher = true;
                     break;
             }
+            System.out.println("");
+            appointmentsDatabaseMenu();
         }
 
     }
@@ -166,14 +162,10 @@ public class TeacherMenu {
                 case 1:
                     createRecordInWaitingList();
                     menuSwitcher = true;
-                    System.out.println("");
-                    waitingListMenu();
                     break;
                 case 2:
                     deleteRecordInWaitingList();
                     menuSwitcher = true;
-                    System.out.println("");
-                    waitingListMenu();
                     break;
                 case 3:
                     System.out.println("|______________________________|   ");
@@ -189,8 +181,6 @@ public class TeacherMenu {
                     } else {
                         System.out.println("You have entered an invalid choice try again!");
                     }
-                    System.out.println("");
-                    waitingListMenu();
                     menuSwitcher = true;
                     break;
                 case 4:
@@ -198,6 +188,8 @@ public class TeacherMenu {
                     menuSwitcher = true;
                     break;
             }
+            System.out.println("");
+            waitingListMenu();
         }
     }
 
@@ -232,26 +224,22 @@ public class TeacherMenu {
                 case 1:
                     createGroup();
                     menuSwitcher = true;
-                    System.out.println("");
-                    groupsMenu();
                     break;
                 case 2:
                     deleteGroup();
                     menuSwitcher = true;
-                    System.out.println("");
-                    groupsMenu();
                     break;
                 case 3:
                     displayGroups();
                     menuSwitcher = true;
-                    System.out.println("");
-                    groupsMenu();
                     break;
                 case 4:
                     teacherMenu();
                     menuSwitcher = true;
                     break;
             }
+            System.out.println("");
+            groupsMenu();
         }
 
     }

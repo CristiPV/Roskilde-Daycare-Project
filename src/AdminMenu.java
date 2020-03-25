@@ -92,26 +92,22 @@ public class AdminMenu {
                 case 1:
                     createChild();
                     menuSwitcher = true;
-                    System.out.println();
-                    childrenMenu();
                     break;
                 case 2:
                     deleteChild();
                     menuSwitcher = true;
-                    System.out.println();
-                    childrenMenu();
                     break;
                 case 3:
                     displayChildList();
                     menuSwitcher = true;
-                    System.out.println();
-                    childrenMenu();
                     break;
                 case 4:
                     adminMenu();
                     menuSwitcher = true;
                     break;
             }
+            System.out.println();
+            childrenMenu();
         }
 
     }
@@ -148,26 +144,22 @@ public class AdminMenu {
                 case 1:
                     createTeacher();
                     menuSwitcher = true;
-                    System.out.println("");
-                    teacherInfoMenu();
                     break;
                 case 2:
                     deleteTeacher();
                     menuSwitcher = true;
-                    System.out.println("");
-                    teacherInfoMenu();
                     break;
                 case 3:
                     displayTeacherList();
                     menuSwitcher = true;
-                    System.out.println("");
-                    teacherInfoMenu();
                     break;
                 case 4:
                     adminMenu();
                     menuSwitcher = true;
                     break;
             }
+            System.out.println("");
+            teacherInfoMenu();
         }
 
     }
@@ -213,19 +205,17 @@ public class AdminMenu {
                        System.out.println("You have entered an invalid choice try again!");
                    }
                    menuSwitcher = true;
-                   System.out.println("");
-                   parentsMenu();
                    break;
                case 2:
                    createParent();
                    menuSwitcher = true;
-                   System.out.println("");
-                   parentsMenu();
                    break;
                case 3:
                    adminMenu();
                    menuSwitcher = true;
            }
+           System.out.println("");
+           parentsMenu();
        }
 
    }
@@ -263,32 +253,26 @@ public class AdminMenu {
                 case 1:
                     scheduleMenu();
                     menuSwitcher = true;
-                    System.out.println("");
-                    groupsMenu();
                     break;
                 case 2:
                     createGroup();
                     menuSwitcher = true;
-                    System.out.println("");
-                    groupsMenu();
                     break;
                 case 3:
                     deleteGroup();
                     menuSwitcher = true;
-                    System.out.println("");
-                    groupsMenu();
                     break;
                 case 4:
                     displayGroups();
                     menuSwitcher = true;
-                    System.out.println("");
-                    groupsMenu();
                     break;
                 case 5:
                     adminMenu();
                     menuSwitcher = true;
                     break;
             }
+            System.out.println("");
+            groupsMenu();
         }
 
     }
@@ -327,32 +311,26 @@ public class AdminMenu {
                 case 1:
                     activitiesMenu();
                     menuSwitcher = true;
-                    System.out.println("");
-                    scheduleMenu();
                     break;
                 case 2:
                     createSchedule();
                     menuSwitcher = true;
-                    System.out.println("");
-                    scheduleMenu();
                     break;
                 case 3:
                     deleteSchedule();
                     menuSwitcher=true;
-                    System.out.println("");
-                    scheduleMenu();
                     break;
                 case 4:
                     displaySchedule();
                     menuSwitcher=true;
-                    System.out.println("");
-                    scheduleMenu();
                     break;
                 case 5:
                     groupsMenu();
                     menuSwitcher=true;
                     break;
             }
+            System.out.println("");
+            scheduleMenu();
         }
     }
     public void createSchedule(){
@@ -387,20 +365,18 @@ public class AdminMenu {
                 case 1:
                     createActivity();
                     menuSwitcher = true;
-                    System.out.println("");
-                    activitiesMenu();
                     break;
                 case 2:
                     displayAcitivties();
                     menuSwitcher = true;
-                    System.out.println("");
-                    activitiesMenu();
                     break;
                 case 3:
                     scheduleMenu();
                     menuSwitcher = true;
                     break;
             }
+            System.out.println("");
+            activitiesMenu();
         }
     }
     public void createActivity(){
@@ -433,14 +409,10 @@ public class AdminMenu {
                 case 1:
                     createRecordInWaitingList();
                     menuSwitcher = true;
-                    System.out.println("");
-                    waitingListMenu();
                     break;
                 case 2:
                     deleteRecordInWaitingList();
                     menuSwitcher = true;
-                    System.out.println("");
-                    waitingListMenu();
                     break;
                 case 3:
                     System.out.println("|______________________________|   ");
@@ -460,14 +432,14 @@ public class AdminMenu {
                         System.out.println("You have entered an invalid choice try again!");
                     }
                     menuSwitcher = true;
-                    System.out.println("");
-                    waitingListMenu();
                     break;
                 case 4:
                     adminMenu();
                     menuSwitcher = true;
                     break;
             }
+            System.out.println("");
+            waitingListMenu();
         }
     }
     public void createRecordInWaitingList(){
@@ -502,26 +474,22 @@ public class AdminMenu {
                 case 1:
                     createInvoice();
                     menuSwitcher = true;
-                    System.out.println("");
-                    paymentManagement();
                     break;
                 case 2:
                     deleteInvoice();
                     menuSwitcher = true;
-                    System.out.println("");
-                    paymentManagement();
                     break;
                 case 3:
                     displayInvoicesList();
                     menuSwitcher = true;
-                    System.out.println("");
-                    paymentManagement();
                     break;
                 case 4:
-                    new AdminMenu();
+                    adminMenu();
                     menuSwitcher = true;
                     break;
             }
+            System.out.println("");
+            paymentManagement();
         }
     }
     public void createInvoice() {
@@ -560,14 +528,10 @@ public class AdminMenu {
                 case 1:
                     createAppointment();
                     menuSwitcher = true;
-                    System.out.println("");
-                    appointmentsDatabaseMenu();
                     break;
                 case 2:
                     deleteAppointment();
                     menuSwitcher = true;
-                    System.out.println("");
-                    appointmentsDatabaseMenu();
                     break;
                 case 3:
 
@@ -589,14 +553,14 @@ public class AdminMenu {
                     System.out.println("You have entered an invalid choice try again!");
                 }
                     menuSwitcher = true;
-                    System.out.println("");
-                    appointmentsDatabaseMenu();
                     break;
                 case 4:
                     adminMenu();
                     menuSwitcher = true;
                     break;
             }
+            System.out.println("");
+            appointmentsDatabaseMenu();
         }
 
     }
