@@ -1,3 +1,5 @@
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.Scanner;
 
 public class MainMenu {
@@ -14,20 +16,27 @@ public class MainMenu {
     public static void signInMenu() {
         AdminMenu adminMenu=new AdminMenu();
         TeacherMenu teacherMenu=new TeacherMenu();
-        String username, password;
-        System.out.println(" ______________________________");
-        System.out.println("|          Roskilde            |    ");
-        System.out.println("|     ______________________   |   ");
-        System.out.println("|              Daycare         |  ");
-        System.out.println("|______________________________|  \n|                              |");
-        System.out.println("|          Sign in             |  ");
-        System.out.println("|______________________________|  ");
-        System.out.println("|       Enter Username :       | ");
-        username = console.next();
-        System.out.println("|______________________________|\n|       Enter password:        |");
-        password = console.next();
-        System.out.println("|______________________________|  ");
-        loginDB(username, password);
+        String username = "", password = "", user = "";
+        boolean loggedIn = false;
+        while (!loggedIn) {
+
+            System.out.println(" ______________________________");
+            System.out.println("|          Roskilde            |    ");
+            System.out.println("|     ______________________   |   ");
+            System.out.println("|              Daycare         |  ");
+            System.out.println("|______________________________|  \n|                              |");
+            System.out.println("|          Sign in             |  ");
+            System.out.println("|______________________________|  ");
+            System.out.println("|       Enter Username :       | ");
+            username = console.next();
+            System.out.println("|______________________________|\n|       Enter password:        |");
+            password = console.next();
+            System.out.println("|______________________________|  ");
+
+            user = DBConnection.loginQuery(username,password);
+            loggedIn = !user.isEmpty();
+        }
+        System.out.println("Welcome, " + user);
         if (username.equalsIgnoreCase("administrator")) {
             adminMenu.adminMenu();
         } else {
@@ -35,10 +44,6 @@ public class MainMenu {
         }
     }
 
-    public static void loginDB(String username, String password)
-    {
-        DBConnection.setUsername(username);
-        DBConnection.setPassword(password);
-    }
+
 
 }

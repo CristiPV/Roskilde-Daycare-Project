@@ -46,6 +46,36 @@ public class DBConnection {
         }
         return false; // Returns null in case of any exception.
     }
+    public static String loginQuery(String username, String password) {
+        DBConnection.setUsername(username);
+        DBConnection.setPassword(password);
+        String connectedUser = "";
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            Connection con = DriverManager.getConnection(url, username, password);
+            Statement st = con.createStatement();
+            st.execute("USE " + schema + ";");
+            ResultSet rs = st.executeQuery("SELECT teacher_id\n" +
+                                            "FROM user\n" +
+                                            "WHERE username = \"" + username + "\";");
+            rs.next();
+            String teacherID = rs.getString("teacher_id");
+            if (teacherID == null) {
+                connectedUser = "Administrator : Sandra Madsen";
+            }
+            else {
+                rs = st.executeQuery("SELECT first_name, last_name \n" +
+                        "FROM teacher\n" +
+                        "WHERE teacher_id = " + teacherID + ";");
+                rs.next();
+                connectedUser = "Teacher : " + rs.getString("first_name") + " " + rs.getString("last_name");
+            }
+        }  catch (SQLException | ClassNotFoundException e) {
+            e.printStackTrace();
+            System.out.println("Wrong Credentials. Please try again !");
+        }
+        return connectedUser;
+    }
     // endregion
 
     // region Getters
