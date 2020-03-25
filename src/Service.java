@@ -16,7 +16,7 @@ public class Service {
         String firstName = scanner.next();
         System.out.println("Enter last name : ");
         String lastName = scanner.next();
-        System.out.println("Enter birth day : ");
+        System.out.println("Enter birth day (YYYY-MM-DD) : ");
         String birth_date = scanner.next();
         System.out.println("Enter sex : ");
         String sex = scanner.next();
@@ -26,11 +26,26 @@ public class Service {
         String joinedDate = scanner.next();
         System.out.println("Enter parent ID : ");
         int parentID = scanner.nextInt();
-        System.out.println("You added a child to the system.");
-        DBConnection.executeQuery("INSERT INTO child(first_name, last_name, birth_date, sex, age, joined_date, parent_id) VALUES\n" +
-                "(\"" + firstName + "\", \"" + lastName + "\", \"" + birth_date + "\", \"" + sex + "\", " +
-                age + ", \"" + joinedDate + "\", " + parentID + ");");
-    }
+        System.out.println("Do you want to confirmation this addition to the database?\n"+
+                "Name: "+firstName+"|Family: "+lastName+"|Birthday: "+birth_date+"|Sex: "+sex+"|Age: "+age+
+                "|Joining date: "+joinedDate+"|Parent ID: "+parentID+
+                "\n (1).Yes/ (2).No");
+        int confirmation=scanner.nextInt();
+        if(confirmation==1) {
+            System.out.println("You added a child to the system.");
+            DBConnection.executeQuery("INSERT INTO child(first_name, last_name, birth_date, sex, age, joined_date, parent_id) VALUES\n" +
+                    "(\"" + firstName + "\", \"" + lastName + "\", \"" + birth_date + "\", \"" + sex + "\", " +
+                    age + ", \"" + joinedDate + "\", " + parentID + ");");
+        }
+        else if(confirmation==2)
+        {
+            System.out.println("Canceling creation.....");
+        }
+        else
+        {
+            System.out.println("Wrong input....**CANCELING CREATION** ");
+        }
+        }
     public void deleteChild(){ //works
         //code to to delete data from sql database
         // if parent has no more children in the DB, then delete the parent associated with the child.
@@ -42,30 +57,51 @@ public class Service {
 
         ResultSet pid = DBConnection.sendQuery("SELECT parent_id FROM child\n" +
                 "WHERE child_id = " + id + ";");
+        ResultSet cC= DBConnection.sendQuery("SELECT * FROM child WHERE child_id="+id+";");
+            try {
+                cC.next();
+                System.out.println("Do you want to confirmation this deletion from the database?");
+                System.out.println("ID"+cC.getString("child_id")+"|Name: "+cC.getString("first_name")+
+                        "|Family: "+cC.getString("last_name")+"|Birthday: "+cC.getString("birth_date")+
+                        "|Sex: "+cC.getString("sex")+"|Age: "+cC.getString("age")+"|Joined Date: "+cC.getString("joined_date")+
+                        "|Group ID: "+cC.getString("group_id")+"|Parent ID: "+cC.getString("parent_id")+
+                        "    \n   (1).Yes/(2).No      ");
+               int confirmation=scanner.nextInt();
+                if(confirmation==1) {
+                    pid.next();
+                    String parentID = pid.getString("parent_id");
 
-        try {
-            pid.next();
-            String parentID = pid.getString("parent_id");
-            ResultSet rs = DBConnection.sendQuery("SELECT COUNT(child_id) AS count FROM child\n" +
-                    "WHERE parent_id = " + parentID + ";");
-            rs.next();
-            // checks if the parent has any more children than the one we are about to delete
-            if (rs.getInt("count") == 1) {
-                // deletes the telephone list entries related to the parent
-                DBConnection.executeQuery("DELETE FROM telephone_list\n" +
-                        "WHERE parent_id = " + parentID + ";");
-                // deletes the parent
-                DBConnection.executeQuery("DELETE FROM parent\n" +
-                        "WHERE parent_id = " + parentID + ";");
+                    ResultSet rs = DBConnection.sendQuery("SELECT COUNT(child_id) AS count FROM child\n" +
+                            "WHERE parent_id = " + parentID + ";");
+                    rs.next();
+                    // checks if the parent has any more children than the one we are about to delete
+                    if (rs.getInt("count") == 1) {
+                        // deletes the telephone list entries related to the parent
+                        DBConnection.executeQuery("DELETE FROM telephone_list\n" +
+                                "WHERE parent_id = " + parentID + ";");
+                        // deletes the parent
+                        DBConnection.executeQuery("DELETE FROM parent\n" +
+                                "WHERE parent_id = " + parentID + ";");
+                    }
+                    DBConnection.executeQuery("DELETE FROM child\n" +
+                            "WHERE child_id = " + id + ";");
+                    System.out.println("You removed the child from the system.");
+                }
+              else if(confirmation==2)
+                {
+                    System.out.println("Canceling Deletion...");
+                }
+                else
+                {
+                    System.out.println("Wrong input...*CANCELING DELETION*");
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
             }
-            DBConnection.executeQuery("DELETE FROM child\n" +
-                    "WHERE child_id = " + id + ";");
 
-        }catch (SQLException e) {
-            e.printStackTrace();
         }
-        System.out.println("You removed child from the system.");
-    }
+
+
     public void displayChildList(){ //works
         //code to to select data from sql database
         // select all from child + join with parent first & last name
@@ -100,27 +136,41 @@ public class Service {
         String phoneNo = scanner.next();
         System.out.println("Enter alternate phone number (If none, enter 0) : ");
         String phoneNoAlt = scanner.next();
-        DBConnection.executeQuery("INSERT INTO parent(first_name, last_name, birth_date, sex) VALUES (\"" + firstName + "\", \"" + lastName +
-                "\", \"" + birth_date + "\", \"" + sex + "\");");
+        System.out.println("Do you want to confirmation this addition to the database?\n"+
+                "Name: "+firstName+"|Family: "+lastName+"|Birthday: "+birth_date+"|Sex: "+sex+"|Phone number: "+phoneNo+
+                "|Phone number ALT:  "+phoneNoAlt+
+                "\n (1).Yes/ (2).No");
+        int confirmation=scanner.nextInt();
+        if(confirmation==1) {
+            DBConnection.executeQuery("INSERT INTO parent(first_name, last_name, birth_date, sex) VALUES (\"" + firstName + "\", \"" + lastName +
+                    "\", \"" + birth_date + "\", \"" + sex + "\");");
 
-        // Finds the parent and retrieves the ID
-        ResultSet rs = DBConnection.sendQuery("SELECT parent_id FROM parent\n" +
-                "WHERE first_name = \"" + firstName + "\" AND last_name = \"" + lastName + "\";");
-        String parentID = "";
-        try {
-            rs.next();
-            parentID = rs.getString("parent_id");
+            // Finds the parent and retrieves the ID
+            ResultSet rs = DBConnection.sendQuery("SELECT parent_id FROM parent\n" +
+                    "WHERE first_name = \"" + firstName + "\" AND last_name = \"" + lastName + "\";");
+            String parentID = "";
+            try {
+                rs.next();
+                parentID = rs.getString("parent_id");
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+
+            // Adds the main phone no in the DB
+            DBConnection.executeQuery("INSERT INTO telephone_list VALUES (\"" + phoneNo + "\", " + parentID + ");");
+
+            // Adds the alternate phone no ( if exsists ) in the DB
+            if (phoneNoAlt.length() == 8) {
+                DBConnection.executeQuery("INSERT INTO telephone_list VALUES (\"" + phoneNoAlt + "\", " + parentID + ");");
+            }
         }
-        catch (SQLException e) {
-            e.printStackTrace();
+        else if(confirmation==2)
+        {
+            System.out.println("Canceling creation...");
         }
-
-        // Adds the main phone no in the DB
-        DBConnection.executeQuery("INSERT INTO telephone_list VALUES (\"" + phoneNo + "\", " + parentID + ");");
-
-        // Adds the alternate phone no ( if exsists ) in the DB
-        if (phoneNoAlt.length() == 8) {
-            DBConnection.executeQuery("INSERT INTO telephone_list VALUES (\"" + phoneNoAlt + "\", " + parentID + ");");
+        else
+        {
+            System.out.println("Wrong input...**CANCELING CREATION**");
         }
     }
     public void displayParentList(){ //works
@@ -170,7 +220,7 @@ public class Service {
             e.printStackTrace();
         }
     }
-    public void createTeacher(){ //works
+    public void createTeacher() { //works
         //code to to insert data to sql database
         // insert query - WIP
         System.out.println("Enter first name : ");
@@ -185,21 +235,60 @@ public class Service {
         int salary = scanner.nextInt();
         System.out.println("Enter group ID : ");
         int group_id = scanner.nextInt();
-
-        DBConnection.executeQuery("INSERT INTO teacher (first_name, last_name, birth_date, sex, salary, group_id, super_id) VALUES\n" +
-                "(\"" + firstName + "\", \"" + lastName + "\", \"" + birth_date + "\", \"" + sex + "\", " + salary + ", " + group_id + ", " + 101 +");");
-        System.out.println("You created a teacher in the system.");
+        System.out.println("Do you want to confirmation this addition to the database?\n" +
+                "|Name: " + firstName + "|Family: " + lastName + "|Birthday: " + birth_date + "|Sex: " + sex +
+                "|Salary: " + salary + "|Group ID: " + group_id +
+                "\n   (1).Yes/(2).No");
+        int confirmation=scanner.nextInt();
+        if (confirmation == 1) {
+            DBConnection.executeQuery("INSERT INTO teacher (first_name, last_name, birth_date, sex, salary, group_id, super_id) VALUES\n" +
+                    "(\"" + firstName + "\", \"" + lastName + "\", \"" + birth_date + "\", \"" + sex + "\", " + salary + ", " + group_id + ", " + 101 + ");");
+            System.out.println("You created a teacher in the system.");
+        }
+        else if(confirmation==2)
+        {
+            System.out.println("Canceling creation...");
+        }
+        else
+        {
+            System.out.println("Wrong input...**CANCELING CREATION**");
+        }
     }
     public void deleteTeacher(){ // works
         //code to to delete data from sql database
         // delete teacher and associated appointments
         System.out.println("Enter teacher ID : ");
         int teacher_id = scanner.nextInt();
-        DBConnection.executeQuery("DELETE FROM appointment WHERE teacher_id = " + teacher_id + ";");
-        DBConnection.executeQuery("DELETE FROM teacher WHERE teacher_id = " + teacher_id + ";");
+        ResultSet rs= DBConnection.sendQuery("SELECT * FROM teacher WHERE teacher_id="+teacher_id);
+        System.out.println("Do you want to delete this teacher from the database");
+        try {
 
-        System.out.println("You deleted a teacher from the system.");
-        new AdminMenu();
+            System.out.println("ID: "+rs.getString("teacher_id")+"|Name: "+rs.getString("first_name")+
+                    "|Family" + rs.getString("last_name")+"|Birthday: "+rs.getString("birth_date")+
+                    "|Sex"+rs.getString("sex")+"|Salary"+rs.getString("salary")+"|Group ID: "+rs.getString("group_id")+
+                    "\n (1).Yes/(2).No");
+        }
+        catch(SQLException e)
+            {
+                e.printStackTrace();
+            }
+        int confirmation=scanner.nextInt();
+
+        if(confirmation==1) {
+            DBConnection.executeQuery("DELETE FROM appointment WHERE teacher_id = " + teacher_id + ";");
+            DBConnection.executeQuery("DELETE FROM teacher WHERE teacher_id = " + teacher_id + ";");
+
+            System.out.println("You deleted a teacher from the system.");
+            new AdminMenu();
+        }
+        else if(confirmation==2)
+        {
+            System.out.println("Canceling deletion...");
+        }
+        else
+        {
+            System.out.println("Wrong input...**CANCELING DELETION** ");
+        }
     }
     public void displayTeacherList(){ //works
         //code to to select data from sql database
