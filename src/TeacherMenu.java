@@ -42,9 +42,21 @@ public class TeacherMenu {
                     menuSwitcher = true;
                     break;
                 case 4:
+                    displaySchedule();
                     menuSwitcher = true;
                     break;
                 case 5:
+                    System.out.println("|______________________________|   ");
+                    System.out.println("| What do you want to display  |" +
+                            "  (1)All OR (2)One instance?  ");
+                    int displayChoice = console.nextInt();
+                    if (displayChoice == 1) {
+                        displayParentList();
+                    } else if (displayChoice == 2) {
+                        displayOneParent();
+                    } else {
+                        System.out.println("You have entered an invalid choice try again!");
+                    }
                     menuSwitcher = true;
                     break;
                 case 6:
@@ -83,7 +95,6 @@ public class TeacherMenu {
                     menuSwitcher = true;
                     break;
                 case 3:
-
                     System.out.println("|______________________________|   ");
                     System.out.println("| What do you want to display  |" +
                             "  (1)All OR (2)One instance?  ");
@@ -105,6 +116,8 @@ public class TeacherMenu {
                     menuSwitcher = true;
                     break;
             }
+            System.out.println("");
+            appointmentsDatabaseMenu();
         }
 
     }
@@ -175,27 +188,18 @@ public class TeacherMenu {
                     menuSwitcher = true;
                     break;
             }
+            System.out.println("");
+            waitingListMenu();
         }
     }
 
-    public void createRecordInWaitingList() {
-        App.getController().createRecordInWaitingList();
-        waitingListMenu();
-    }
-
+    public void createRecordInWaitingList() {App.getController().createRecordInWaitingList();}
     public void deleteRecordInWaitingList() {
         App.getController().deleteRecordInWaitingList();
     }
+    public void displayWaitingList() {App.getController().displayWaitingList(); }
 
-    public void displayWaitingList() {
-
-        App.getController().displayWaitingList();
-    }
-
-    public void displayRowFromWaitingList() {
-
-        App.getController().displayRowFromWaitingList();
-    }
+    public void displayRowFromWaitingList() {App.getController().displayRowFromWaitingList();}
 
     //Menu method for the admin to manage the groups
     public void groupsMenu() {
@@ -234,6 +238,8 @@ public class TeacherMenu {
                     menuSwitcher = true;
                     break;
             }
+            System.out.println("");
+            groupsMenu();
         }
 
     }
@@ -251,9 +257,15 @@ public class TeacherMenu {
     }
 
     //Display Schedules
-    public void Schedules() {
+    public void displaySchedule() {
+        App.getController().displaySchedule();
     }
 
-    public void phoneList() {
+    //Phone List
+    public void displayParentList(){
+        App.getController().displayParentList();
+    }
+    public void displayOneParent(){
+        App.getController().displayOneParent();
     }
 }

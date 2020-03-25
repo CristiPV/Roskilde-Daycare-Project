@@ -119,6 +119,8 @@ public class AdminMenu {
                     menuSwitcher = true;
                     break;
             }
+            System.out.println("");
+            childrenMenu();
         }
     }
     public void createChild(){
@@ -168,6 +170,8 @@ public class AdminMenu {
                     menuSwitcher = true;
                     break;
             }
+            System.out.println("");
+            teacherInfoMenu();
         }
 
     }
@@ -211,18 +215,20 @@ public class AdminMenu {
                        displayOneParent();
                    } else {
                        System.out.println("You have entered an invalid choice try again!");
-                       parentsMenu();
                    }
                    menuSwitcher = true;
                    break;
                case 2:
                    createParent();
                    menuSwitcher = true;
+
                    break;
                case 3:
                    adminMenu();
                    menuSwitcher = true;
            }
+           System.out.println("");
+           parentsMenu();
        }
 
    }
@@ -278,6 +284,8 @@ public class AdminMenu {
                     menuSwitcher = true;
                     break;
             }
+            System.out.println("");
+            groupsMenu();
         }
 
     }
@@ -334,7 +342,10 @@ public class AdminMenu {
                     menuSwitcher=true;
                     break;
             }
+            System.out.println("");
+            scheduleMenu();
         }
+
 
     }
     public void createSchedule(){
@@ -346,6 +357,7 @@ public class AdminMenu {
     public void deleteSchedule() {
         App.getController().deleteSchedule();
     }
+
    //Activities Menu method and all functions it provides
     public void activitiesMenu() {
         boolean menuSwitcher = false;
@@ -378,7 +390,8 @@ public class AdminMenu {
                     menuSwitcher = true;
                     break;
             }
-
+            System.out.println("");
+            activitiesMenu();
         }
     }
     public void createActivity(){
@@ -441,6 +454,8 @@ public class AdminMenu {
                     menuSwitcher = true;
                     break;
             }
+            System.out.println("");
+            waitingListMenu();
         }
     }
     public void createRecordInWaitingList(){
@@ -449,14 +464,9 @@ public class AdminMenu {
     public void deleteRecordInWaitingList(){
         App.getController().deleteRecordInWaitingList();
     }
-    public void displayWaitingList(){
+    public void displayWaitingList(){ App.getController().displayWaitingList(); }
+    public void displayRowFromWaitingList(){ App.getController().displayRowFromWaitingList(); }
 
-        App.getController().displayWaitingList();
-    }
-    public void displayRowFromWaitingList(){
-
-        App.getController().displayRowFromWaitingList();
-    }
     //payment method menu
     public void paymentManagement() {
         boolean menuSwitcher = false;
@@ -494,7 +504,8 @@ public class AdminMenu {
                     menuSwitcher = true;
                     break;
             }
-
+            System.out.println("");
+            paymentManagement();
         }
     }
     public void createInvoice() {
@@ -566,6 +577,8 @@ public class AdminMenu {
                     menuSwitcher = true;
                     break;
             }
+            System.out.println("");
+            appointmentsDatabaseMenu();
         }
 
     }
