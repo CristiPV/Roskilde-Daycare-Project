@@ -139,7 +139,7 @@ public class Service {
                 }
                 else {
                     System.out.println();
-                    System.out.println("ID : " + rs.getString("parent_id") + " | Name : " + rs.getString("first_name") + rs.getString("last_name") +
+                    System.out.println("ID : " + rs.getString("parent_id") + " | Name : " + rs.getString("first_name") + " " + rs.getString("last_name") +
                             " | Birth Date : " + rs.getString("birth_date") + " | Sex : " + rs.getString("sex"));
                     System.out.print("Phone Number : " + rs.getString("telephone_list.phone_number"));
                 }
@@ -266,7 +266,7 @@ public class Service {
                 System.out.println("ID : " + rs.getString("appointment.appointment_id") + " | Date : " + rs.getString("appointment.date") + " | Time : " +
                         rs.getString("appointment.time") + " | Child ID : " + rs.getString("appointment.child_id") + " | Teacher ID :" +
                         rs.getString("appointment.teacher_id") + " | Teacher Name : " + rs.getString("teacher_first_name") + " " + rs.getString("teacher_last_name") +
-                        " | Child Name : " + rs.getString("child_first_name ") + " | Parent Name : " + rs.getString("parent_first_name") + rs.getString("parent_last_name"));
+                        " | Child Name : " + rs.getString("child_first_name") + " | Parent Name : " + rs.getString("parent_first_name") + rs.getString("parent_last_name"));
             }
         }catch (SQLException e){
             e.printStackTrace();
@@ -304,7 +304,7 @@ public class Service {
         System.out.println("Enter child ID: (if none: enter -1)");
         String child_id=scanner.next();
         DBConnection.executeQuery("INSERT INTO waiting_list(date_added,reason,child_id) \n" +
-                "VALUES(\""+ dateAdded + "\", \""+reason+"\",\""+child_id+");");
+                "VALUES(\""+ dateAdded + "\", \""+reason+"\","+child_id+");");
     }
     public void deleteRecordInWaitingList(){
         //code to to delete data from sql database
@@ -316,16 +316,19 @@ public class Service {
     public void displayWaitingList(){ //chech if works
         //code to to select data from sql database
         // select all + join with child name + parent name
-        ResultSet rs = DBConnection.sendQuery("SELECT *, parent.firstName AS \"Parent name\", parent.lastName AS \"Parent surname\" \n" +
+        ResultSet rs = DBConnection.sendQuery("SELECT waiting_list.*, child.first_name AS child_first_name, parent.first_name AS parent_first_name, parent.last_name AS parent_last_name\n" +
                 "FROM waiting_list\n" +
+                "JOIN child\n" +
+                "ON waiting_list.child_id = child.child_id\n" +
                 "JOIN parent\n" +
-                "ON parent.child_id = waiting_list.child_id;");
+                "ON child.parent_id = parent.parent_id;");
         try {
-            rs.next();
-            System.out.println("ID : " + rs.getString("waiting_list_id") + " | Date : " + rs.getString("date") +
-                    " | Reason : " + rs.getString("reason") + " | Child ID : " + rs.getString("child_id")+ " | Parent name : " + rs.getString("Parent name")
-                    + " | Parent last name : " + rs.getString("Parent surname"));
-
+            while ( rs.next() ) {
+                System.out.println("ID : " + rs.getString("entry_id") + " | Date : " + rs.getString("date_added") +
+                        " | Reason : " + rs.getString("reason") + " | Child ID : " + rs.getString("child_id") +
+                        " | Child Name : " + rs.getString("child_first_name") + " | Parent name : " + rs.getString("parent_first_name")
+                        + " " + rs.getString("parent_last_name"));
+            }
         } catch (SQLException e){
             e.printStackTrace();
         }
@@ -344,8 +347,8 @@ public class Service {
             while (rs.next()) {
                 // ResultSet has rows with columns accessible by using the column name
                 System.out.println("ID: " + rs.getString("entry_id") +
-                        "|First Name" + rs.getString("first_name") +
-                        "|Last Name" + rs.getString("last_name") +
+                        "|First Name: " + rs.getString("first_name") +
+                        "|Last Name: " + rs.getString("last_name") +
                         "|Date Added: " + rs.getString("date_added") +
                         "|Reason: " + rs.getString("reason"));
             }
@@ -405,7 +408,7 @@ public class Service {
         String name = scanner.next();
         System.out.println("Enter short description of activity:");
         String desc = scanner.next() + scanner.nextLine();
-        DBConnection.executeQuery("INSERT INTO activity (name, desc) VALUES (\"" + name + "\", \"" + desc + "\");");
+        DBConnection.executeQuery("INSERT INTO activity(activity.name, activity.desc) VALUES (\"" + name + "\", \"" + desc + "\");");
     }
     public void displayAcitivties(){
         //code to to select data from sql database
@@ -415,8 +418,8 @@ public class Service {
         try {
 
             while(rs.next()) {
-                System.out.println("ID:" + rs.getString("activity.activiy_id") + " | " + "Name:" + rs.getString("activity.name"));
-                System.out.println("Description:" + rs.getString("activiy.desc"));
+                System.out.println("ID:" + rs.getString("activity.activity_id") + " | " + "Name:" + rs.getString("activity.name"));
+                System.out.println("Description:" + rs.getString("activity.desc"));
             }
 
         } catch (SQLException e) {
@@ -441,15 +444,14 @@ public class Service {
         int parentID = scanner.nextInt();
         System.out.println("Enter teacher ID (if none, enter -1) : ");
         int teacherID = scanner.nextInt();
-        if (parentID == -1) {
+        if (parentID < 0) {
             DBConnection.executeQuery("INSERT INTO invoice(amount, date_received, date_sent, from, to, parent_id, teacher_id)\n" +
-                    "                  VALUES (" + amount + ", \" " + dateReceived + "\", \"" +
+                    "VALUES (" + amount + ", \"" + dateReceived + "\", \"" +
                     dateSent + "\", \"" + from + "\", \"" + to + "\", NULL, " + teacherID + ");");
         }
         else {
             DBConnection.executeQuery("INSERT INTO invoice(amount, date_received, date_sent, from, to, parent_id, teacher_id)\n" +
-                    "                  VALUES (" + amount + ", \" " + dateReceived + "\", \"" +
-                    dateSent + "\", \"" + from + "\", \"" + to + "\"," + parentID + ", NULL);");
+                    "VALUES (" + amount + ", \" " + dateReceived + "\", \"" + dateSent + "\", \"" + from + "\", \"" + to + "\"," + parentID + ", NULL);");
         }
     }
     public void deleteInvoice(){
@@ -482,14 +484,14 @@ public class Service {
         String name = scanner.next();
         System.out.println("Enter schedule id:");
         int id = scanner.nextInt();
-        DBConnection.executeQuery("INSERT INTO group (name, schedule_id) VALUES (\"" + name + "\", \"" + id + "\");");
+        DBConnection.executeQuery("INSERT INTO roskilde_daycare.group (name, schedule_id, avg_age) VALUES (\"" + name + "\", " + id + ", " + 0 + ");");
     }
     public void deleteGroup(){
         //code to to delete data from sql database
         // delete group
         System.out.println("Select group ID to delete group:");
         int id = scanner.nextInt();
-        DBConnection.executeQuery("DELETE FROM group WHERE group_id = " + id + ";\n");
+        DBConnection.executeQuery("DELETE FROM roskilde_daycare.group WHERE group_id = " + id + ";\n");
     }
     public void displayGroups(){
         //code to to select data from sql database
@@ -503,7 +505,7 @@ public class Service {
             while(rs.next()) {
                 System.out.println("ID: " + rs.getString("group.group_id") + " | " + "Name: " + rs.getString("group.name") +
                 " | " + "Average age:" + rs.getString("group.avg_age") + " | " + "Schedule ID: " + rs.getString("group.schedule_id") +
-                " | " + "Teacher name: " + rs.getString("teacher.first_name") + rs.getString("teacher.last_name"));
+                " | " + "Teacher name: " + rs.getString("teacher.first_name") + " " + rs.getString("teacher.last_name"));
             }
 
         } catch (SQLException e) {

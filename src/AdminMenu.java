@@ -357,7 +357,7 @@ public class AdminMenu {
         System.out.println("|______________________________|  \n" +
                            "|        Activities Menu       |");
         System.out.println("|______________________________|   ");
-        System.out.println("|      1.Create Activity     |  ");
+        System.out.println("|      1.Create Activity       |  ");
         System.out.println("|      2.Display Activities    |  ");
         System.out.println("|      3.Back                  |  ");
         System.out.println("|______________________________|   ");
