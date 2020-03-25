@@ -51,13 +51,11 @@ public class Controller {
     public static void displayWaitingList(){
         service.displayWaitingList();
     }
-    public static void displayRowFromWaitingList(){
-
-        service.displayRowFromWaitingList();
-    }
+    public static void displayRowFromWaitingList(){ service.displayRowFromWaitingList(); }
     public static void createSchedule(){
         service.createSchedule();
     }
+    public static void addActivityToSchedule() {service.addActivityToSchedule();}
     public static void displaySchedule () {
         service.displaySchedule();
     }
@@ -89,4 +87,5 @@ public class Controller {
         service.displayGroups();
     }
     public static void addChildrenToGroup() {service.addChildrenToGroup();}
+
 }

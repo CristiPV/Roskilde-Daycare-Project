@@ -340,7 +340,7 @@ public class Service {
 
         System.out.println("You deleted an appointment in the system.");
     }
-    public void displayAppointmentList(){ //doesn't work
+    public void displayAppointmentList(){ //works
         //code to to select data from sql database
         // select all from appointment + join with teacher name + child name + parent name
         ResultSet rs = DBConnection.sendQuery("SELECT  appointment.*, teacher.first_name AS teacher_first_name, teacher.last_name AS teacher_last_name, \n" +
@@ -404,7 +404,7 @@ public class Service {
         int child_id=scanner.nextInt();
         DBConnection.executeQuery("DELETE FROM waiting_list WHERE child_id="+child_id);
     }
-    public void displayWaitingList(){ //chech if works
+    public void displayWaitingList(){ // works
         //code to to select data from sql database
         // select all + join with child name + parent name
         ResultSet rs = DBConnection.sendQuery("SELECT waiting_list.*, child.first_name AS child_first_name, parent.first_name AS parent_first_name, parent.last_name AS parent_last_name\n" +
@@ -616,17 +616,30 @@ public class Service {
                     "WHERE child_id = " + childID + ";");
         }
     }
-    public void addActivitiesToSchedule () { // NEEDS TO BE INCLUDED IN MENUS
+    public void addActivityToSchedule()  {
         System.out.println("Select Schedule : ");
         int scheduleID = scanner.nextInt();
         System.out.println("How many activities do you want to add : ");
         int nr = scanner.nextInt();
-        for (int i = 1; i <= nr; i ++){
+        while (nr >0 ){
             System.out.println("Select activity : ");
             int activityID = scanner.nextInt();
+            ResultSet rs = DBConnection.sendQuery("SELECT schedule_has_activity.activity_id FROM schedule_has_activity WHERE schedule_has_activity.schedule_id = " + scheduleID + ";");
+            try {
+                while (rs.next()) {
+                    if (activityID == rs.getInt("schedule_has_activity.activity_id")){
+                        System.out.println("This activity is already in the schedule.");
+                        System.out.println("Select activity : ");
+                        activityID = scanner.nextInt();
+                    }
+                }
+            } catch (SQLException e){
+                e.printStackTrace();
+            }
             System.out.println("How many times would you like to have the activity during the month :");
             int instances = scanner.nextInt();
             DBConnection.executeQuery("INSERT INTO schedule_has_activity  VALUES (" + scheduleID + ", " + activityID +", " + instances + ");");
+            nr =-1;
         }
     }
 }

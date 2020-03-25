@@ -212,9 +212,10 @@ public class TeacherMenu {
                            "|       Groups Menu            |");
         System.out.println("|______________________________|   ");
         System.out.println("|      1.Add Group             |  ");
-        System.out.println("|      2.Delete Group          |  ");
-        System.out.println("|      3.Display Groups        |  ");
-        System.out.println("|      4.Back                  |  ");
+        System.out.println("|      2.Add Child To Group    |  ");
+        System.out.println("|      3.Delete Group          |  ");
+        System.out.println("|      4.Display Groups        |  ");
+        System.out.println("|      5.Back                  |  ");
         System.out.println("|______________________________|   ");
         System.out.println("        Select choice...        ");
 
@@ -226,14 +227,18 @@ public class TeacherMenu {
                     menuSwitcher = true;
                     break;
                 case 2:
-                    deleteGroup();
+                    addChildrenToGroup();
                     menuSwitcher = true;
                     break;
                 case 3:
-                    displayGroups();
+                    deleteGroup();
                     menuSwitcher = true;
                     break;
                 case 4:
+                    displayGroups();
+                    menuSwitcher = true;
+                    break;
+                case 5:
                     teacherMenu();
                     menuSwitcher = true;
                     break;
@@ -255,6 +260,7 @@ public class TeacherMenu {
     public void displayGroups() {
         App.getController().displayGroups();
     }
+    public static void addChildrenToGroup() {App.getController().addChildrenToGroup();}
 
     //Display Schedules
     public void displaySchedule() {

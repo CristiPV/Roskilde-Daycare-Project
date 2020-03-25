@@ -241,9 +241,10 @@ public class AdminMenu {
         System.out.println("|______________________________|   ");
         System.out.println("|      1.Schedules             |  ");
         System.out.println("|      2.Add Group             |  ");
-        System.out.println("|      3.Delete Group          |  ");
-        System.out.println("|      4.Display Groups        |  ");
-        System.out.println("|      5.Back                  |  ");
+        System.out.println("|      3.Add Child To Group    |  ");
+        System.out.println("|      4.Delete Group          |  ");
+        System.out.println("|      5.Display Groups        |  ");
+        System.out.println("|      6.Back                  |  ");
         System.out.println("|______________________________|   ");
         System.out.println("        Select choice...        ");
 
@@ -259,14 +260,18 @@ public class AdminMenu {
                     menuSwitcher = true;
                     break;
                 case 3:
-                    deleteGroup();
+                    addChildrenToGroup();
                     menuSwitcher = true;
                     break;
                 case 4:
-                    displayGroups();
+                    deleteGroup();
                     menuSwitcher = true;
                     break;
                 case 5:
+                    displayGroups();
+                    menuSwitcher = true;
+                    break;
+                case 6:
                     adminMenu();
                     menuSwitcher = true;
                     break;
@@ -286,23 +291,25 @@ public class AdminMenu {
     public void displayGroups(){
         App.getController().displayGroups();
     }
+    public static void addChildrenToGroup() {App.getController().addChildrenToGroup();}
     // Schedule Menu method and all functions it provides
     public  void scheduleMenu()
     {
         boolean menuSwitcher=false;
-        System.out.println(" ______________________________");
-        System.out.println("|         Roskilde             |    ");
-        System.out.println("|     _______________________  |   ");
-        System.out.println("|         Daycare              |  " );
-        System.out.println("|______________________________|  \n" +
-                           "|   Schedule Management Menu   |");
-        System.out.println("|______________________________|   ");
-        System.out.println("|      1.Activities            |  ");
-        System.out.println("|      2.Create Schedule       |  ");
-        System.out.println("|      3.Delete Schedule       |  ");
-        System.out.println("|      4.Display Schedules     |  ");
-        System.out.println("|      5.Back                  |  ");
-        System.out.println("|______________________________|   ");
+        System.out.println(" ________________________________");
+        System.out.println("|         Roskilde               |    ");
+        System.out.println("|     _______________________    |   ");
+        System.out.println("|         Daycare                |  " );
+        System.out.println("|________________________________|  \n" +
+                           "|   Schedule Management Menu     |");
+        System.out.println("|________________________________|   ");
+        System.out.println("|      1.Display Activities      |  ");
+        System.out.println("|      2.Add Activity To Schedule|  ");
+        System.out.println("|      3.Create Schedule         |  ");
+        System.out.println("|      4.Delete Schedule         |  ");
+        System.out.println("|      5.Display Schedules       |  ");
+        System.out.println("|      6.Back                    |  ");
+        System.out.println("|________________________________|   ");
         System.out.println("        Select choice...        ");
 
         int choice=console.nextInt();
@@ -313,18 +320,22 @@ public class AdminMenu {
                     menuSwitcher = true;
                     break;
                 case 2:
-                    createSchedule();
+                    addActivityToSchedule();
                     menuSwitcher = true;
                     break;
                 case 3:
+                    createSchedule();
+                    menuSwitcher = true;
+                    break;
+                case 4:
                     deleteSchedule();
                     menuSwitcher=true;
                     break;
-                case 4:
+                case 5:
                     displaySchedule();
                     menuSwitcher=true;
                     break;
-                case 5:
+                case 6:
                     groupsMenu();
                     menuSwitcher=true;
                     break;
@@ -342,6 +353,7 @@ public class AdminMenu {
     public void deleteSchedule() {
         App.getController().deleteSchedule();
     }
+    public static void addActivityToSchedule() {App.getController().addActivityToSchedule();}
 
    //Activities Menu method and all functions it provides
     public void activitiesMenu() {

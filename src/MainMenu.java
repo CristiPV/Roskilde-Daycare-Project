@@ -23,7 +23,7 @@ public class MainMenu {
             System.out.println(" ______________________________");
             System.out.println("|          Roskilde            |    ");
             System.out.println("|     ______________________   |   ");
-            System.out.println("|              Daycare         |  ");
+            System.out.println("|          Daycare             |  ");
             System.out.println("|______________________________|  \n|                              |");
             System.out.println("|          Sign in             |  ");
             System.out.println("|______________________________|  ");
