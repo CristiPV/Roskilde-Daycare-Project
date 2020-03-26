@@ -51,14 +51,14 @@ public class DBConnection {
         DBConnection.setPassword(password);
         String connectedUser = "";
         try {
-            Class.forName("com.mysql.jdbc.Driver");
-            Connection con = DriverManager.getConnection(url, username, password);
-            Statement st = con.createStatement();
-            st.execute("USE " + schema + ";");
-            ResultSet rs = st.executeQuery("SELECT teacher_id\n" +
-                                            "FROM user\n" +
-                                            "WHERE username = \"" + username + "\";");
-            rs.next();
+            Class.forName("com.mysql.jdbc.Driver"); // explain
+            Connection con = DriverManager.getConnection(url, username, password); //explain
+            Statement st = con.createStatement(); //explain
+            st.execute("USE " + schema + ";"); //explain
+            ResultSet rs = st.executeQuery("SELECT teacher_id\n" +  //extract column teacher_id
+                                            "FROM user\n" +            //from user table
+                                            "WHERE username = \"" + username + "\";"); //on condition that username equals to the username in the table
+            rs.next(); //
             String teacherID = rs.getString("teacher_id");
             if (teacherID == null) {
                 connectedUser = "Administrator : Sandra Madsen";

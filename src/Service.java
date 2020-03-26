@@ -47,20 +47,20 @@ public class Service {
             System.out.println("Wrong input....**CANCELING CREATION** ");
         }
     }
-    public void deleteChild(){ //works
-        //code to to delete data from sql database
-        // if parent has no more children in the DB, then delete the parent associated with the child.
-        // delete telephone_list entries related to the parent
-        // Delete the waiting_list entries tied to the child
-        // Delete specific row ( id )
+    public void deleteChild(){
         System.out.println("Select child : ");
         int id = scanner.nextInt();
 
+        //program gets parent_id from table child on condition that child_id equals to inputed child_id
         ResultSet pid = DBConnection.sendQuery("SELECT parent_id FROM child\n" +
                 "WHERE child_id = " + id + ";");
+
+        //program gets attributes from child table if child_id equals to inputed child_id
         ResultSet cC= DBConnection.sendQuery("SELECT * FROM child WHERE child_id="+id+";");
             try {
-                cC.next();
+                cC.next(); //progra gets next row from cC result set
+
+                //program prints information about child from row from cC result set
                 System.out.println("Do you want to confirm this deletion from the database?");
                 System.out.println("ID"+cC.getString("child_id")+"|Name: "+cC.getString("first_name")+
                         "|Family: "+cC.getString("last_name")+"|Birthday: "+cC.getString("birth_date")+
@@ -69,21 +69,29 @@ public class Service {
                         "    \n   (1).Yes/(2).No      ");
                int confirmation=scanner.nextInt();
                 if(confirmation==1) {
-                    pid.next();
+                    pid.next(); //get next row from pid result set
+
+                    //gets parent_if from pid result set and assigned it to variable
                     String parentID = pid.getString("parent_id");
 
+                    //counts children for parent whose parent_id matches parent_id from pid result set
                     ResultSet rs = DBConnection.sendQuery("SELECT COUNT(child_id) AS count FROM child\n" +
                             "WHERE parent_id = " + parentID + ";");
-                    rs.next();
+
+                    rs.next(); //next row from rs result set
+
                     // checks if the parent has any more children than the one we are about to delete
                     if (rs.getInt("count") == 1) {
+
                         // deletes the telephone list entries related to the parent
                         DBConnection.executeQuery("DELETE FROM telephone_list\n" +
                                 "WHERE parent_id = " + parentID + ";");
+
                         // deletes the parent
                         DBConnection.executeQuery("DELETE FROM parent\n" +
                                 "WHERE parent_id = " + parentID + ";");
                     }
+                    //deletes the child
                     DBConnection.executeQuery("DELETE FROM child\n" +
                             "WHERE child_id = " + id + ";");
                     System.out.println("You removed the child from the system.");
@@ -103,10 +111,11 @@ public class Service {
         }
 
 
-    public void displayChildList(){ //works
-        //code to to select data from sql database
+    public void displayChildList(){
         // select all from child + join with parent first & last name
-        ResultSet rs = DBConnection.sendQuery("SELECT child.child_id, child.first_name, child.last_name, parent.first_name AS \"parent_first_name\", parent.last_name AS \"parent_Last_name\"\n" +
+        ResultSet rs = DBConnection.sendQuery("SELECT child.child_id, child.first_name, child.last_name," +
+                " parent.first_name AS \"parent_first_name\"," +
+                " parent.last_name AS \"parent_Last_name\"\n" +
                                                 "FROM child\n" +
                                                 "JOIN parent\n" +
                                                 "ON child.parent_id = parent.parent_id\n" +
@@ -175,9 +184,9 @@ public class Service {
         }
         System.out.println("You added a parent to the system.");
     }
-    public void displayParentList(){ //works
-        //code to to select data from sql database
-        // select all from parent + join with telephone_list
+    public void displayParentList(){
+        // program gets attributes from parent table and joins them with phone_number attribute from telephone_list table
+        //if parent_id in both tables match and orders the result set by parent_id
         ResultSet rs = DBConnection.sendQuery("SELECT *, telephone_list.phone_number\n" +
                 "FROM parent\n" +
                 "JOIN telephone_list\n" +
@@ -185,7 +194,7 @@ public class Service {
                 "ORDER BY parent.parent_id;");
         try {
             String lastID = "";
-            while (rs.next()){
+            while (rs.next()){ //program gets row from rs result set
                 if (rs.getString("parent_id").equals(lastID)) {
                     System.out.print(", " + rs.getString("telephone_list.phone_number"));
                 }
@@ -202,29 +211,31 @@ public class Service {
         }
 
     }
-    public void displayOneParent( ){ //works
+    public void displayOneParent( ){
         System.out.println("Select parent : ");
         int id = scanner.nextInt();
+        // program gets attributes from parent table and phone number from telephone_list table
+        //it joins tables based on parent_id
         ResultSet rs = DBConnection.sendQuery("SELECT *, telephone_list.phone_number\n" +
                 "FROM parent\n" +
                 "JOIN telephone_list\n" +
                 "ON parent.parent_id = telephone_list.parent_id\n" +
                 "WHERE parent.parent_id =  " + id + ";");
         try {
-            rs.next();
-            System.out.println("ID : " + rs.getString("parent_id") + " | Name : " + rs.getString("first_name") + rs.getString("last_name") +
+            rs.next(); //program takes a row from result set
+            //program prints specified information from the row
+            System.out.println("ID : " + rs.getString("parent_id") + " | Name : " + rs.getString("first_name")
+                    + rs.getString("last_name") +
                     " | Birth Date : " + rs.getString("birth_date") + " | Sex : " + rs.getString("sex"));
             System.out.print("Phone Number : " + rs.getString("telephone_list.phone_number"));
-            while (rs.next()) {
+            while (rs.next()) { //if next line exist it add after comma next phone number belonging to the parent
                 System.out.print(", " + rs.getString("telephone_list.phone_number"));
             }
         } catch (SQLException e){
             e.printStackTrace();
         }
     }
-    public void createTeacher() { //works
-        //code to to insert data to sql database
-        // insert query - WIP
+    public void createTeacher() {
         System.out.println("Enter first name : ");
         String firstName = scanner.next();
         System.out.println("Enter last name : ");
@@ -243,9 +254,14 @@ public class Service {
                 "\n   (1).Yes/(2).No");
         int confirmation=scanner.nextInt();
         if (confirmation == 1) {
-            DBConnection.executeQuery("INSERT INTO teacher (first_name, last_name, birth_date, sex, salary, group_id, super_id) VALUES\n" +
-                    "(\"" + firstName + "\", \"" + lastName + "\", \"" + birth_date + "\", \"" + sex + "\", " + salary + ", " + group_id + ", " + 101 + ");");
+            //insert inputed data into scpecified columns in table teacher in database
+            DBConnection.executeQuery("INSERT INTO teacher (first_name, last_name, birth_date, sex," +
+                    " salary, group_id, super_id) VALUES\n" +
+                    "(\"" + firstName + "\", \"" + lastName + "\", \"" + birth_date + "\", \"" + sex + "\", "
+                    + salary + ", " + group_id + ", " + 101 + ");");
             System.out.println("You created a teacher in the system.");
+            //method which creates user teacher in the system (grant access, creates login and password)
+            createUser (firstName,lastName);
         }
         else if(confirmation==2)
         {
@@ -255,6 +271,7 @@ public class Service {
         {
             System.out.println("Wrong input...**CANCELING CREATION**");
         }
+
     }
     public void deleteTeacher(){ // works
         //code to to delete data from sql database
